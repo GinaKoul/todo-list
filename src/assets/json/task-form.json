@@ -1,0 +1,59 @@
+{
+    "title": "Add todo item",
+    "submitButton": "Add Task",
+    "formFields": [
+        {
+            "id": "taskTitle",
+            "titleLabel": "Title",
+            "fieldType": "input",
+            "inputType": "text",
+            "name": "todoItem.title",
+            "required": true
+        },
+        {
+            "id": "taskDescription",
+            "titleLabel": "Description",
+            "fieldType": "textarea",
+            "rows": "4",
+            "name": "todoItem.description",
+            "required": true
+        },
+        {
+            "id": "taskDueDate",
+            "titleLabel": "Due Date",
+            "fieldType": "input",
+            "inputType": "datetime-local",
+            "name": "todoItem.dueDate",
+            "required": true
+        },
+        {
+            "id": "taskPriority",
+            "titleLabel": "Priority",
+            "fieldType": "select",
+            "options": [
+                {
+                    "title": "None",
+                    "value": "none",
+                    "selected": true
+                },
+                {
+                    "title": "Low",
+                    "value": "low",
+                    "selected": false
+                },
+                {
+                    "title": "Medium",
+                    "value": "medium",
+                    "selected": false
+                },
+                {
+                    "title": "High",
+                    "value": "high",
+                    "selected": false
+                }
+            ],
+            "name": "todoItem.priority",
+            "required": true   
+        }
+    ]
+}

@@ -6,7 +6,7 @@ const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
 module.exports = {
-    entry: "./src/index.js",
+    entry: "./src/assets/js/index.js",
     plugins: [
         new MiniCssExtractPlugin(),
         // new MiniCssExtractPlugin({
