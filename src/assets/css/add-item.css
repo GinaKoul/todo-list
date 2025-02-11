@@ -1,4 +1,29 @@
+:root {
+    --dlt-color: #880808;
+}
 
 .add-task-form {
     background: #fff;
+}
+
+.add-task-form details ul {
+    margin: 1.5rem;
+}
+
+.add-task-form details li {
+    padding: 4px 8px;
+}
+
+.dlt-icon {
+    margin-left: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s linear;
+}
+
+.dlt-icon:hover {
+    color: var(--dlt-color);
+}
+
+.add-task-form details {
+    margin-bottom: 1.5rem;
 }

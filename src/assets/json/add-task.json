@@ -1,5 +1,5 @@
 {
-    "title": "Add todo item",
+    "title": "Create new task",
     "submitButton": "Add Task",
     "formFields": [
         {
@@ -54,6 +54,22 @@
             ],
             "name": "todoItem.priority",
             "required": true   
+        },
+        {
+            "id": "taskNotes",
+            "titleLabel": "Add Notes",
+            "fieldType": "addition",
+            "inputType": "text",
+            "name": "todoItem.notes",
+            "buttonTitle": "Save Note"
+        },
+        {
+            "id": "taskCheckList",
+            "titleLabel": "Add Check List",
+            "fieldType": "addition",
+            "inputType": "text",
+            "name": "todoItem.checkList",
+            "buttonTitle": "Save Check List Item"
         }
     ]
 }

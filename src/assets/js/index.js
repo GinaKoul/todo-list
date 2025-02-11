@@ -1,35 +1,10 @@
 import '../css/styles.css';
 import '../css/add-item.css';
-// import { TodoItem } from './todo-item.js';
-import { TaskForm } from './task-form.js';
-// import { Categories } from './categories.js';
-// import { Contact } from './contact.js';
-// import { Credits } from './credits.js';
+import { AddTask } from './add-task.js';
+import { AddProject } from './add-project.js';
 
-TaskForm.load();
-// let task1 = TodoItem;
-// task1.setTitle('Task 1');
-// task1.setDescription('Task 1 description');
-// task1.setDueDate('1/12/2025');
-// task1.setPriority('none');
-// task1.addNote('Note 1');
-// task1.addNote('Note 2');
-// task1.addCheckListItem('Checklist item 1');
-// task1.addCheckListItem('Checklist item 2');
-// task1.addCheckListItem('Checklist item 3');
-
-// task1.logTodoItem();
-
-// task1.removeNote(0);
-// task1.changeCheckListItemStatus(1);
-// task1.removeCheckListItem(2);
-// task1.changeStatus();
-
-// console.log('------');
-
-// task1.logTodoItem();
-
-
+// AddTask.load();
+AddProject.load();
 
 if (process.env.NODE_ENV !== 'production') {
     console.log('Looks like we are in development mode!');

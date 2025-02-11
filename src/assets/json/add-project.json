@@ -1,0 +1,14 @@
+{
+    "title": "Create new project",
+    "submitButton": "Add project",
+    "formFields": [
+        {
+            "id": "taskTitle",
+            "titleLabel": "Title",
+            "fieldType": "input",
+            "inputType": "text",
+            "name": "todoProject.title",
+            "required": true
+        }
+    ]
+}

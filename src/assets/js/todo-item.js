@@ -1,5 +1,4 @@
 import { PubSub } from "./pubsub";
-import { documentMock } from "./document-mock";
 
 export const TodoItem = (function() {
     let title,
@@ -38,12 +37,20 @@ export const TodoItem = (function() {
         notes.splice(index,1);
     }
 
+    function getNotes() {
+        return notes;
+    }
+
     function addCheckListItem(value) {
         checkList.push({'title':`${value}`,'status':false});
     }
 
     function removeCheckListItem(index) {
         checkList.splice(index,1);
+    }
+
+    function getCheckList() {
+        return checkList;
     }
 
     function changeCheckListItemStatus(index) {
@@ -68,10 +75,12 @@ export const TodoItem = (function() {
         changeStatus,
         addNote,
         removeNote,
+        getNotes,
         addCheckListItem,
         removeCheckListItem,
+        getCheckList,
         changeCheckListItemStatus,
         logTodoItem
     }
 
-})(document||documentMock);
+})();

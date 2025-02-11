@@ -101,6 +101,7 @@
   /*General*/
   --body-bg: #99a8bb;
   --body-color: #3c345c;
+  --secondary-color: #fff;
   --default-font-size: 16px;
   --font-family: "Quicksand","Poppins","Nunito","Rubik","Arial Rounded MT Bold","Verdana","Tahoma",sans-serif;
   --border-color: #3c345c;
@@ -148,6 +149,10 @@
   --h5-mobile-font-size: 1rem; /*16px*/
   --heading-mb: 1rem; /*16px*/
 
+  /*Buttons*/
+  --btn-padding-y: 1rem;
+  --btn-padding-x: 2rem;
+
   /*Paragraph*/
   --paragraph-mb: 0.5rem; /*8px*/
 
@@ -160,6 +165,7 @@
   --label-mb: var(--paragraph-mb);
   --form-p-x: 24px;
   --form-p-y: var(--form-p-x);
+  --form-inner-wmax: 480px;
 
   /*Footer*/
   --footer-top-desktop: 128px;
@@ -254,18 +260,23 @@ button {
   outline: none;
   border: none;
   text-decoration: none;
-  margin: var(--nav-btn-margin-y) var(--nav-btn-margin-x);
-  padding: var(--nav-btn-padding-y) var(--nav-btn-padding-x);
+  padding: var(--btn-padding-y) var(--btn-padding-x);
   border-radius: var(--border-radius);
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  cursor: pointer;
+}
+
+header button {
+  margin: 0;
 }
 
 nav button {
   background-color: transparent;
   color: currentColor;
-}
-
-nav button:hover {
-  cursor: pointer;
+  border-radius: 0;
+  margin: var(--nav-btn-margin-y) var(--nav-btn-margin-x);
+  padding: var(--nav-btn-padding-y) var(--nav-btn-padding-x);
 }
 
 /*Menu*/
@@ -366,6 +377,8 @@ label {
 }
 
 input, textarea, select {
+  width: 100%;
+  max-width: var(--form-inner-wmax);
   padding: 0.5rem;
   margin-bottom: var(--input-mb);
   border: 1px solid var(--border-color);
@@ -374,6 +387,58 @@ input, textarea, select {
 
 input, select {
   height: var(--input-height);
+}
+
+details {
+  width: 100%;
+  max-width: var(--form-inner-wmax);
+}
+
+summary {
+  display: flex;
+  position: relative;
+  list-style: none;
+  padding: 10px 40px 10px 10px;
+  font-weight: bold;
+  background-color: var(--body-bg);
+  color: var(--secondary-color);
+  border-radius: var(--border-radius);
+  margin-bottom: var(--heading-mb);
+}
+
+summary label {
+  pointer-events: none;
+  margin-bottom: 0;
+}
+
+summary:hover {
+  cursor: pointer;
+}
+
+summary::before, summary::after {
+  position: absolute;
+  content: '';
+  top: 50%; 
+  translate: 0 -50%; 
+  border-radius: var(--border-radius);
+  background-color: var(--secondary-color);
+}
+
+summary::before {
+  right: 10px;
+  width: 20px;
+  height: 4px;
+}
+
+summary::after {
+  right: calc(20px/2 - 4px/2 + 10px);
+  width: 4px;
+  height: 20px;
+  transition: all 0.3s linear;
+}
+
+details[open] summary::after {
+  rotate: 90deg; 
 }
 
 /*Footer*/
