@@ -1,6 +1,4 @@
-import { documentMock } from "./document-mock";
-
-export const ProjectList = (function() {
+export const TodoProjectList = (function() {
     let projectList = [];
 
     function addProject(project) {
@@ -21,4 +19,4 @@ export const ProjectList = (function() {
         getProjectList
     }
 
-})(document||documentMock)
+})();

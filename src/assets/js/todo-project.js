@@ -1,8 +1,13 @@
-import { PubSub } from "./pubsub";
+const { v4: uuidv4 } = require('uuid');
 
-export const TodoProject = (function() {
-    let title,
+export function TodoProject() {
+    let id = uuidv4(),
+        title,
         taskList = [];
+
+    function getId() {
+        return id;
+    }
 
     function setTitle(value) {
         title = value;
@@ -25,11 +30,11 @@ export const TodoProject = (function() {
     }
 
     return {
+        getId,
         setTitle,
         getTitle,
         addTask,
         removeTask,
         getTaskList
     }
-
-})();
+};

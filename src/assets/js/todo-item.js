@@ -1,6 +1,4 @@
-import { PubSub } from "./pubsub";
-
-export const TodoItem = (function() {
+export function TodoItem() {
     let title,
         description,
         dueDate,
@@ -13,16 +11,32 @@ export const TodoItem = (function() {
         title = value;
     }
 
+    function getTitle() {
+        return title;
+    }
+
     function setDescription(value) {
         description = value;
+    }
+
+    function getDescription() {
+        return description;
     }
 
     function setDueDate(value) {
         dueDate = value;
     }
 
+    function getDueDate() {
+        return dueDate;
+    }
+
     function setPriority(value) {
         priority = value;
+    }
+
+    function getPriority() {
+        return priority;
     }
 
     function changeStatus() {
@@ -69,9 +83,13 @@ export const TodoItem = (function() {
 
     return {
         setTitle,
+        getTitle,
         setDescription,
+        getDescription,
         setDueDate,
+        getDueDate,
         setPriority,
+        getPriority,
         changeStatus,
         addNote,
         removeNote,
@@ -82,5 +100,4 @@ export const TodoItem = (function() {
         changeCheckListItemStatus,
         logTodoItem
     }
-
-})();
+};

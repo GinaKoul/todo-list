@@ -1,14 +1,14 @@
 import { PubSub } from "./pubsub.js";
 import { documentMock } from "./document-mock.js";
-import addProjectPage from "../json/add-project.json";
-import { TodoProject } from './todo-project.js';
 import { Form } from "./form.js";
+import { TodoProjectList } from "./todo-project-list.js";
+import { TodoProject } from './todo-project.js';
+import addProjectPage from "../json/add-project.json";
 
 export const AddProject = (function(){
     // cacheDom
     let mainContent = document.querySelector('#content');
 
-    let newProject = TodoProject;
     let addProjectForm,
         titleField;
 
@@ -19,8 +19,9 @@ export const AddProject = (function(){
 
     function setTaskDetails(event) {
         event.preventDefault();
+        const newProject = TodoProject();
         newProject.setTitle(titleField.value);
-        console.log(newProject.getTitle());
+        TodoProjectList.addProject(newProject);
         addProjectForm.reset();
     }
 

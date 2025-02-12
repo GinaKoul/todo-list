@@ -122,6 +122,9 @@
   --header-h: 72px;
   --header-h-mb: 112px;
 
+  /*Main*/
+  --main-top: 64px;
+
   /*Logo*/
   --logo-font-style: italic;
 
@@ -150,14 +153,16 @@
   --heading-mb: 1rem; /*16px*/
 
   /*Buttons*/
+  --btn-bg: var(--primary-color);
+  --btn-color: var(--secondary-color);
+  --btn-bg-hover: var(--body-bg);
+  --btn-color-color: var(--body-color);
+  --btn-font-weight: 700;
   --btn-padding-y: 1rem;
   --btn-padding-x: 2rem;
 
   /*Paragraph*/
   --paragraph-mb: 0.5rem; /*8px*/
-
-  /*Article*/
-  --article-top: 64px;
 
   /*Form*/
   --input-height: 42px;
@@ -173,6 +178,9 @@
   --footer-bg: var(--header-bg);
   --footer-color: var(--header-color);
   --footer-p-y: 1rem;
+
+  /*Icons*/
+  --dlt-color: #880808;
 }
 
 * {
@@ -199,6 +207,7 @@ header {
 }
 
 main {
+  margin-top: var(--main-top);
   grid-area: 2/1;
 }
 
@@ -262,9 +271,16 @@ button {
   text-decoration: none;
   padding: var(--btn-padding-y) var(--btn-padding-x);
   border-radius: var(--border-radius);
-  background-color: var(--primary-color);
-  color: var(--secondary-color);
+  background-color: var(--btn-bg);
+  color: var(--btn-color);
+  font-weight: var(--btn-font-weight);
   cursor: pointer;
+  transition: all 0.3s linear;
+}
+
+button:hover {
+  background-color: var(--btn-bg-hover);
+  color: var(--btn-color-hover);
 }
 
 header button {
@@ -312,7 +328,6 @@ nav.menu button:not(:last-child):not(.menu-close) {
   background: transparent;
   border: 1px solid currentColor;
   padding: 8px 16px;
-  transition: all 0.3s linear;
 }
 
 .menu-open:hover {
@@ -347,10 +362,6 @@ p {
   margin-bottom: var(--paragraph-mb);
 }
 
-article {
-  margin-top: var(--article-top);
-}
-
 .pt-h {
   padding-top: var(--header-h);
 }
@@ -363,7 +374,6 @@ img {
 
 form {
   padding: var(--form-p-y) var(--form-p-x) !important;
-  margin-top: var(--article-top);
   border-radius: var(--border-radius);
 }
 
@@ -521,4 +531,17 @@ footer a {
   footer {
     margin-top: var(--footer-top-desktop);
   }
+}
+
+/*Icons*/
+.dlt-icon {
+  background: unset;
+  padding: 0;
+  margin-left: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s linear;
+}
+
+.dlt-icon:hover {
+  color: var(--dlt-color);
 }

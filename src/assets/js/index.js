@@ -2,9 +2,12 @@ import '../css/styles.css';
 import '../css/add-item.css';
 import { AddTask } from './add-task.js';
 import { AddProject } from './add-project.js';
+import { Projects } from './projects.js';
 
 // AddTask.load();
-AddProject.load();
+// AddProject.load();
+Projects.load();
+
 
 if (process.env.NODE_ENV !== 'production') {
     console.log('Looks like we are in development mode!');
