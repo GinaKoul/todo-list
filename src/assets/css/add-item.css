@@ -6,6 +6,11 @@
     background: var(--task-form-bg);
 }
 
+.add-task-form details {
+    width: 100%;
+    max-width: var(--form-inner-wmax);
+}
+
 .add-task-form details ul {
     margin: 1.5rem;
 }

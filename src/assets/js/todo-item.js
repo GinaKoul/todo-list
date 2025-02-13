@@ -1,11 +1,19 @@
+import { CheckListItem } from './checklist-item.js';
+const { v4: uuidv4 } = require('uuid');
+
 export function TodoItem() {
-    let title,
+    let id = uuidv4(),
+        title,
         description,
         dueDate,
         priority,
         status = false,
         notes = [],
         checkList = [];
+
+    function getId() {
+        return id;
+    }
 
     function setTitle(value) {
         title = value;
@@ -56,7 +64,9 @@ export function TodoItem() {
     }
 
     function addCheckListItem(value) {
-        checkList.push({'title':`${value}`,'status':false});
+        let item = CheckListItem();
+        item.setTitle(value);
+        checkList.push(item);
     }
 
     function removeCheckListItem(index) {
@@ -67,8 +77,8 @@ export function TodoItem() {
         return checkList;
     }
 
-    function changeCheckListItemStatus(index) {
-        checkList[index].status = !checkList[index].status;
+    function getCheckListItem(index) {
+        return checkList[index];
     }
 
     function logTodoItem() {
@@ -82,6 +92,7 @@ export function TodoItem() {
     }
 
     return {
+        getId,
         setTitle,
         getTitle,
         setDescription,
@@ -97,7 +108,7 @@ export function TodoItem() {
         addCheckListItem,
         removeCheckListItem,
         getCheckList,
-        changeCheckListItemStatus,
+        getCheckListItem,
         logTodoItem
     }
 };

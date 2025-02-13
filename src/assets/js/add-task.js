@@ -1,15 +1,16 @@
 import { PubSub } from "./pubsub.js";
 import { documentMock } from "./document-mock.js";
-import addTaskPage from "../json/add-task.json";
-import { TodoItem } from './todo-item.js';
 import { Form } from "./form.js";
+import { TodoItem } from './todo-item.js';
+import { RecentProject } from "./recent-project.js";
+import addTaskPage from "../json/add-task.json";
 
 export const AddTask = (function() {
     // cacheDom
     let mainContent = document.querySelector('#content');
 
-    let newTask = TodoItem;
-    let addTaskForm,
+    let newTask,
+        addTaskForm,
         titleField,
         descriptionField,
         dueDateField,
@@ -23,21 +24,25 @@ export const AddTask = (function() {
         priorityField = document.querySelector('[name="todoItem.priority"]');
     }
 
+    function backToProject() {
+        PubSub.trigger('OpenProject');
+    }
+
     function setTaskDetails(event) {
         event.preventDefault();
         newTask.setTitle(titleField.value);
         newTask.setDescription(descriptionField.value);
         newTask.setDueDate(dueDateField.value);
         newTask.setPriority(priorityField.value);
-        newTask.logTodoItem();
-        addTaskForm.reset();
+        let currentProject = RecentProject.get();
+        currentProject.addTask(newTask);
+        backToProject();
     }
 
     function addTaskNote(additionField) {
         if(additionField.value) {
             newTask.addNote(additionField.value);
             additionField.value = '';
-            newTask.logTodoItem();
         }
     }
 
@@ -71,7 +76,6 @@ export const AddTask = (function() {
         if(additionField.value) {
             newTask.addCheckListItem(additionField.value);
             additionField.value = '';
-            newTask.logTodoItem();
         }
     }
 
@@ -89,7 +93,7 @@ export const AddTask = (function() {
             listItem.setAttribute('data-id',index);
 
             let itemContent = document.createElement('span');
-            itemContent.textContent = checkListItem['title'];
+            itemContent.textContent = checkListItem.getTitle();
 
             let deleteItem = document.createElement('span');
             deleteItem.classList.add('dlt-icon');
@@ -142,6 +146,9 @@ export const AddTask = (function() {
     }
 
     function render() {
+        mainContent.textContent = '';
+        newTask = TodoItem();
+
         //Create form element
         let form = document.createElement('form');
         form.id = 'addTask';
@@ -174,10 +181,17 @@ export const AddTask = (function() {
             }
         });
 
+        // Add back to project button
+        let backBtn = document.createElement('button');
+        backBtn.textContent = addTaskPage['backButton'];
+        backBtn.setAttribute('type','button');
+        backBtn.addEventListener('click',backToProject);
+
         // Add submit button
         let submitBtn = document.createElement('button');
         submitBtn.textContent = addTaskPage['submitButton'];
-        form.append(submitBtn);
+
+        form.append(backBtn,submitBtn);
 
         // Add page content
         mainContent.append(form);

@@ -17,15 +17,21 @@ export const AddProject = (function(){
         titleField = document.querySelector('[name="todoProject.title"]');
     }
 
+    function backToProjects() {
+        PubSub.trigger('AllProjects');
+    }
+
     function setTaskDetails(event) {
         event.preventDefault();
         const newProject = TodoProject();
         newProject.setTitle(titleField.value);
         TodoProjectList.addProject(newProject);
-        addProjectForm.reset();
+        PubSub.trigger('AllProjects');
     }
 
     function render() {
+        mainContent.textContent = '';
+
         //Create form element
         let form = document.createElement('form');
         form.id = 'addProject';
@@ -47,10 +53,17 @@ export const AddProject = (function(){
             }
         });
 
+        // Add back to project button
+        let backBtn = document.createElement('button');
+        backBtn.textContent = addProjectPage['backButton'];
+        backBtn.setAttribute('type','button');
+        backBtn.addEventListener('click',backToProjects);
+
         // Add submit button
         let submitBtn = document.createElement('button');
         submitBtn.textContent = addProjectPage['submitButton'];
-        form.append(submitBtn);
+
+        form.append(backBtn,submitBtn);
 
         // Add page content
         mainContent.append(form);

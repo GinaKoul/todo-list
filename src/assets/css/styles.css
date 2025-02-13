@@ -265,6 +265,8 @@ header {
   text-decoration: none;
 }
 
+/*Buttons*/
+
 button {
   outline: none;
   border: none;
@@ -362,6 +364,10 @@ p {
   margin-bottom: var(--paragraph-mb);
 }
 
+.bold {
+  font-weight: 700;
+}
+
 .pt-h {
   padding-top: var(--header-h);
 }
@@ -399,13 +405,9 @@ input, select {
   height: var(--input-height);
 }
 
-details {
-  width: 100%;
-  max-width: var(--form-inner-wmax);
-}
-
 summary {
   display: flex;
+  align-items: center;
   position: relative;
   list-style: none;
   padding: 10px 40px 10px 10px;

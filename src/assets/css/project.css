@@ -1,0 +1,104 @@
+:root {
+    --high-priority: #900d09;
+    --high-priority-hover: #d0312d;
+    --medium-priority: #FADA5E;
+    --medium-priority-hover: #FFE36E;
+    --low-priority: #3B7a57;
+    --low-priority-hover: #40a368;
+}
+
+.components-list > button {
+    margin-bottom: 1.5rem;
+    margin-right: 1rem;
+}
+
+.high {
+    background: var(--high-priority);
+}
+
+.high:hover {
+    background: var(--high-priority-hover);
+}
+
+.medium {
+    background: var(--medium-priority);
+}
+
+.medium:hover {
+    background: var(--medium-priority-hover);
+}
+
+.low {
+    background: var(--low-priority);
+}
+
+.low:hover {
+    background: var(--low-priority-hover);
+}
+
+.task-item > * {
+    font-size: 1.125rem !important;
+}
+
+.task-item h3 {
+    margin-bottom: 0;
+}
+
+.task-item summary {
+    padding: 10px 10px 10px 40px;
+    font-size: 1rem;
+}
+
+.task-item summary:before {
+    right: unset;
+    left: 10px;
+}
+
+.task-item summary::after {
+    right: unset;
+    left: calc(20px/2 - 4px/2 + 10px);
+}
+
+.task-item .due-date {
+    margin-left: auto;
+    margin-right: 1rem;
+    margin-bottom: 0;
+}
+
+.task-item .dlt-icon {
+    padding: 1rem;
+    font-size: 1.25rem;
+}
+
+.task-item .dlt-icon:hover {
+    background: var(--dlt-color);
+}
+
+.task-item .high .dlt-icon {
+    background: var(--high-priority-hover);
+}
+
+.task-item .high:hover .dlt-icon {
+    background: var(--high-priority);
+}
+
+.task-item .medium .dlt-icon {
+    background: var(--medium-priority-hover);
+}
+
+.task-item .medium:hover .dlt-icon {
+    background: var(--medium-priority);
+}
+
+.task-item .low .dlt-icon {
+    background: var(--low-priority-hover);
+}
+
+.task-item .low:hover .dlt-icon {
+    background: var(--low-priority);
+}
+
+.task-item:hover .dlt-icon:hover {
+    background: var(--dlt-color) !important;
+    color: var(--secondary-color);
+}

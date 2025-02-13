@@ -1,7 +1,9 @@
 import '../css/projects.css';
 import { documentMock } from "./document-mock.js";
+import { PubSub } from './pubsub.js';
 import { TodoProjectList } from "./todo-project-list.js";
 import { TodoProject } from "./todo-project.js";
+import { RecentProject } from "./recent-project.js";
 
 export const Projects = (function(){
     // cacheDom
@@ -16,14 +18,20 @@ export const Projects = (function(){
     TodoProjectList.addProject(newProject);
     TodoProjectList.addProject(newProject2);
 
-    function triggerEvent() {
-        console.log('ADD PROJECT');
+    function addProjectPage() {
+        PubSub.trigger('AddProject');
     }
 
     function deleteProject(event) {
         let selectedProject = event.target.closest('.project-item').getAttribute('data-id');
         TodoProjectList.removeProject(projectList.findIndex(project => project.getId() == selectedProject));
         render();
+    }
+
+    function openProject(event) {
+        let selectedProject = event.target.getAttribute('data-id');
+        RecentProject.set(projectList.find(project => project.getId() == selectedProject));
+        PubSub.trigger('OpenProject');
     }
 
     function render() {
@@ -38,7 +46,7 @@ export const Projects = (function(){
 
         let addProjectBtn = document.createElement('button');
         addProjectBtn.textContent = 'Add project';
-        addProjectBtn.addEventListener('click',triggerEvent)
+        addProjectBtn.addEventListener('click',addProjectPage);
 
         projectsContainer.append(projectsTitle,addProjectBtn);
         
@@ -46,6 +54,7 @@ export const Projects = (function(){
             let projectSection = document.createElement('article');
             projectSection.classList.add('project-item');
             projectSection.setAttribute('data-id',project.getId());
+            projectSection.addEventListener('click',openProject);
 
             let projectTitle = document.createElement('h3');
             projectTitle.textContent = project.getTitle();
@@ -66,4 +75,4 @@ export const Projects = (function(){
     return {
         load: render
     }
-})(document||documentMock)
+})(document||documentMock);
