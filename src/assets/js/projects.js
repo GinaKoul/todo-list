@@ -24,15 +24,27 @@ export const Projects = (function(){
     }
 
     function deleteProject(event) {
+        event.stopPropagation();
         let selectedProject = event.target.closest('.project-item').getAttribute('data-id');
         TodoProjectList.removeProject(projectList.findIndex(project => project.getId() == selectedProject));
         render();
     }
 
-    function openProject(event) {
-        let selectedProject = event.target.getAttribute('data-id');
+    function setCurrentTask(eventTarget) {
+        let selectedProject = eventTarget.closest('.project-item').getAttribute('data-id');
         RecentProject.set(projectList.find(project => project.getId() == selectedProject));
+    }
+
+    function openProject(event) {
+        event.stopPropagation();
+        setCurrentTask(event.target);
         PubSub.trigger('OpenProject');
+    }
+
+    function editProject(event) {
+        event.stopPropagation();
+        setCurrentTask(event.target);
+        PubSub.trigger('EditProject');
     }
 
     function render() {
@@ -60,12 +72,19 @@ export const Projects = (function(){
             let projectTitle = document.createElement('h3');
             projectTitle.textContent = project.getTitle();
 
+            //Create edit button
+            let editItem = document.createElement('button');
+            editItem.classList.add('edit-icon');
+            editItem.textContent = '\u270E';
+            editItem.addEventListener('click',editProject);
+
+            //Create delete button
             let deleteItem = document.createElement('button');
             deleteItem.classList.add('dlt-icon');
             deleteItem.textContent = '⌫';
             deleteItem.addEventListener('click',deleteProject);
 
-            projectSection.append(projectTitle,deleteItem);
+            projectSection.append(projectTitle,editItem,deleteItem);
 
             projectsContainer.append(projectSection);
         });

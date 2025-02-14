@@ -1,5 +1,5 @@
 import { CheckListItem } from './checklist-item.js';
-const { v4: uuidv4 } = require('uuid');
+import { v4 as uuidv4 } from 'uuid';
 
 export function TodoItem() {
     let id = uuidv4(),
@@ -51,6 +51,10 @@ export function TodoItem() {
         status = !status;
     }
 
+    function getStatus() {
+        return status;
+    }
+
     function addNote(value) {
         notes.push(value);
     }
@@ -81,16 +85,6 @@ export function TodoItem() {
         return checkList[index];
     }
 
-    function logTodoItem() {
-        console.log(title);
-        console.log(description);
-        console.log(dueDate);
-        console.log(priority);
-        console.log(status);
-        console.log(notes);
-        console.log(checkList);
-    }
-
     return {
         getId,
         setTitle,
@@ -102,6 +96,7 @@ export function TodoItem() {
         setPriority,
         getPriority,
         changeStatus,
+        getStatus,
         addNote,
         removeNote,
         getNotes,
@@ -109,6 +104,5 @@ export function TodoItem() {
         removeCheckListItem,
         getCheckList,
         getCheckListItem,
-        logTodoItem
     }
 };

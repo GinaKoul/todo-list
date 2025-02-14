@@ -7,6 +7,8 @@ import { RecentProject } from "./recent-project.js";
 import { RecentTask } from "./recent-task.js";
 import { TodoItem } from './todo-item.js';
 import ProjectPage from "../json/project.json";
+import { format } from "date-fns";
+import { CreateProjectsJson } from './create-projects-json.js';
 
 export const Project = (function(){
     // cacheDom
@@ -26,13 +28,24 @@ export const Project = (function(){
     function deleteTask(event) {
         let selectedProject = event.target.closest('.task-item').getAttribute('data-id');
         project.removeTask(projectTasks.findIndex(project => project.getId() == selectedProject));
-        render();
+        PubSub.trigger('OpenProject');
     }
 
     function editTask(event) {
         let selectedTask = event.target.closest('.task-item').getAttribute('data-id');
         RecentTask.set(projectTasks.find(task => task.getId() == selectedTask));
         PubSub.trigger('EditTask');
+    }
+
+    function deleteProject(event) {
+        event.stopPropagation();
+        TodoProjectList.removeProject(TodoProjectList.getProjectList().findIndex(task => task.getId() == project.getId()));
+        PubSub.trigger('AllProjects');
+    }
+
+    function editProject(event) {
+        event.stopPropagation();
+        PubSub.trigger('EditProject');
     }
 
     function createCheckListItem(task,checkListItem,index) {
@@ -98,13 +111,13 @@ export const Project = (function(){
         dueDateTitle.classList.add('bold');
         dueDateTitle.textContent = `${ProjectPage['dueDateTitle']}: `;
         let dueDateContent = document.createElement('span');
-        dueDateContent.textContent = task.getDueDate();
+        dueDateContent.textContent = format(task.getDueDate(), "dd/MM/yyyy HH:mm");
         taskDueDate.append(dueDateTitle,dueDateContent);
 
         //Create edit button
         let editItem = document.createElement('button');
         editItem.classList.add('edit-icon');
-        editItem.textContent = '&#x270E';
+        editItem.textContent = '\u270E';
         editItem.addEventListener('click',editTask);
 
         //Create delete button
@@ -176,7 +189,7 @@ export const Project = (function(){
         let newTask = TodoItem();
         newTask.setTitle('Task 1');
         newTask.setDescription('Task 1 Description');
-        newTask.setDueDate('1/1/2012');
+        newTask.setDueDate('2025-02-19T16:56');
         newTask.setPriority('high');
         newTask.addNote('Note 1');
         newTask.addNote('Note 2');
@@ -186,7 +199,7 @@ export const Project = (function(){
         let newTask2 = TodoItem();
         newTask2.setTitle('Task 2');
         newTask2.setDescription('Task 2 Description');
-        newTask2.setDueDate('1/1/2012');
+        newTask2.setDueDate('2025-02-19T16:56');
         newTask2.setPriority('low');
         project.addTask(newTask2);
         //Remove
@@ -198,6 +211,16 @@ export const Project = (function(){
         let projectsTitle = document.createElement('h2');
         projectsTitle.textContent = project.getTitle();
 
+        let editItem = document.createElement('button');
+        editItem.classList.add('edit-icon');
+        editItem.textContent = '\u270E';
+        editItem.addEventListener('click',editProject);
+
+        let deleteItem = document.createElement('button');
+        deleteItem.classList.add('dlt-icon');
+        deleteItem.textContent = '⌫';
+        deleteItem.addEventListener('click',deleteProject);
+
         let backToProjectsBtn = document.createElement('button');
         backToProjectsBtn.textContent = ProjectPage['backButton'];
         backToProjectsBtn.addEventListener('click',backToProjects);
@@ -206,13 +229,15 @@ export const Project = (function(){
         addProjectBtn.textContent = ProjectPage['addTaskButton'];
         addProjectBtn.addEventListener('click',addTaskPage);
 
-        projectsContainer.append(projectsTitle,backToProjectsBtn,addProjectBtn);
+        projectsContainer.append(projectsTitle,editItem,deleteItem,backToProjectsBtn,addProjectBtn);
         
         projectTasks.forEach(task => {
             projectsContainer.append(createTask(task));
         });
 
         mainContent.append(projectsContainer);
+
+        console.log(CreateProjectsJson.get());
     }
 
     return {

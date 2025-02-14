@@ -6,6 +6,7 @@ import { AddProject } from './add-project.js';
 import { Projects } from './projects.js';
 import { Project } from './project.js';
 import { EditTask } from './edit-task.js';
+import { EditProject } from './edit-project.js';
 
 Projects.load();
 
@@ -29,12 +30,16 @@ function editTaskPage() {
     EditTask.load();
 }
 
+function editProjectPage() {
+    EditProject.load();
+}
+
 PubSub.on('AddProject',addProjectPage);
 PubSub.on('AllProjects',allProjectsPage);
 PubSub.on('OpenProject',projectPage);
 PubSub.on('AddTask',addTaskPage);
 PubSub.on('EditTask',editTaskPage);
-
+PubSub.on('EditProject',editProjectPage);
 
 if (process.env.NODE_ENV !== 'production') {
     console.log('Looks like we are in development mode!');
@@ -119,3 +124,28 @@ const initPage = (function(doc) {
 })(document);
 
 export {initPage};
+
+
+// if (!localStorage.getItem("bgcolor")) {
+//     populateStorage();
+//   } else {
+//     setStyles();
+//   }
+
+// window.addEventListener("storage", (e) => {
+//     document.querySelector(".my-key").textContent = e.key;
+//     document.querySelector(".my-old").textContent = e.oldValue;
+//     document.querySelector(".my-new").textContent = e.newValue;
+//     document.querySelector(".my-url").textContent = e.url;
+//     document.querySelector(".my-storage").textContent = JSON.stringify(
+//       e.storageArea,
+//     );
+//   });
+
+// if (storageAvailable("localStorage")) {
+//     // Yippee! We can use localStorage awesomeness
+//   } else {
+//     // Too bad, no localStorage for us
+//   }
+
+// storageAvailable('sessionStorage')

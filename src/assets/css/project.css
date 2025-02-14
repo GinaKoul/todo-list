@@ -10,6 +10,7 @@
 .components-list > button {
     margin-bottom: 1.5rem;
     margin-right: 1rem;
+    margin-left: 0;
 }
 
 .high {
@@ -65,41 +66,42 @@
     margin-bottom: 0;
 }
 
-.task-item .dlt-icon {
+.task-item .dlt-icon, .task-item .edit-icon {
     padding: 1rem;
     font-size: 1.25rem;
 }
 
-.task-item .dlt-icon:hover {
-    background: var(--dlt-color);
-}
-
-.task-item .high .dlt-icon {
+.task-item .high .dlt-icon, .task-item .high .edit-icon {
     background: var(--high-priority-hover);
 }
 
-.task-item .high:hover .dlt-icon {
+.task-item .high:hover .dlt-icon, .task-item .high:hover .edit-icon {
     background: var(--high-priority);
 }
 
-.task-item .medium .dlt-icon {
+.task-item .medium .dlt-icon, .task-item .medium .edit-icon {
     background: var(--medium-priority-hover);
 }
 
-.task-item .medium:hover .dlt-icon {
+.task-item .medium:hover .dlt-icon, .task-item .medium:hover .edit-icon {
     background: var(--medium-priority);
 }
 
-.task-item .low .dlt-icon {
+.task-item .low .dlt-icon, .task-item .low .edit-icon {
     background: var(--low-priority-hover);
 }
 
-.task-item .low:hover .dlt-icon {
+.task-item .low:hover .dlt-icon, .task-item .low:hover .edit-icon {
     background: var(--low-priority);
 }
 
 .task-item:hover .dlt-icon:hover {
     background: var(--dlt-color) !important;
+    color: var(--secondary-color);
+}
+
+.task-item:hover .edit-icon:hover {
+    background: var(--primary-color) !important;
     color: var(--secondary-color);
 }
 
@@ -170,4 +172,35 @@
     right: calc((14px -12px - 2px)/2);
     top: calc((14px -15px - 2px)/2);
     pointer-events: none;
+}
+
+@media (max-width: 767px) {
+    .task-item summary {
+        flex-wrap: wrap;
+        justify-content: left;
+    }
+
+    .task-item summary h3 {
+        flex: 0 0 100%;
+        order: 1;
+    }
+
+    .task-item summary .due-date {
+        order: 2;
+        /* margin-right: auto; */
+        flex: 0 0 100%;
+        margin-left: 0 !important;
+        margin-top: 8px;
+    }
+
+    .task-item summary .edit-icon {
+        order: 3;
+        margin-left: auto;
+        margin-top: 8px;
+    }
+
+    .task-item summary .dlt-icon {
+        order: 4;
+        margin-top: 8px;
+    }
 }

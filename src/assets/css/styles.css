@@ -383,6 +383,11 @@ form {
   border-radius: var(--border-radius);
 }
 
+form > button {
+  margin-bottom: 1.5rem;
+  margin-right: 1rem;
+}
+
 label, input {
   display: block;
   border-radius: var(--border-radius);
@@ -536,12 +541,15 @@ footer a {
 }
 
 /*Icons*/
-.dlt-icon {
+form .dlt-icon {
   background: unset;
   padding: 0;
-  margin-left: 0.5rem;
+}
+
+.dlt-icon {
   cursor: pointer;
   transition: all 0.3s linear;
+  margin-left: 0.5rem;
 }
 
 .dlt-icon:hover {

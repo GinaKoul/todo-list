@@ -4,6 +4,7 @@ import { Form } from "./form.js";
 import { TodoItem } from './todo-item.js';
 import { RecentTask } from "./recent-task.js";
 import addTaskPage from "../json/add-task.json";
+import editTaskPage from "../json/edit-task.json";
 
 export const EditTask = (function() {
     // cacheDom
@@ -17,7 +18,7 @@ export const EditTask = (function() {
         priorityField;
 
     function cacheDom() {
-        addTaskForm = document.querySelector('#addTask');
+        addTaskForm = document.querySelector('#editTask');
         titleField = document.querySelector('[name="todoItem.title"]');
         descriptionField = document.querySelector('[name="todoItem.description"]');
         dueDateField = document.querySelector('[name="todoItem.dueDate"]');
@@ -35,6 +36,13 @@ export const EditTask = (function() {
         currentTask.setDueDate(dueDateField.value);
         currentTask.setPriority(priorityField.value);
         backToProject();
+    }
+
+    function addFieldValues() {
+        titleField.value = currentTask.getTitle();
+        descriptionField.value = currentTask.getDescription();
+        dueDateField.value = currentTask.getDueDate();
+        priorityField.value = currentTask.getPriority();
     }
 
     function addTaskNote(additionField) {
@@ -108,7 +116,7 @@ export const EditTask = (function() {
         containerList.textContent = '';
         currentTask.getCheckList().forEach((checkListItem,index) =>{
             containerList.append(createCheckItem(checkListItem,index));
-        })
+        });
     }
 
     function additionEvent(event) {
@@ -130,7 +138,8 @@ export const EditTask = (function() {
         //Create collapse section parent
         let collapseParent = document.createElement('details');
         //Set name to make sure only one is open
-        collapseParent.setAttribute('name','todo-item');
+        // collapseParent.setAttribute('name','todo-item');
+        collapseParent.setAttribute('open',true);
         //Create collapse title
         let collapseTitle = document.createElement('summary');
         //Add field label as the title of collapse
@@ -138,6 +147,18 @@ export const EditTask = (function() {
         //Create the list for added elements
         let fieldList = document.createElement('ul');
         fieldList.classList.add('field-list');
+        switch(field['name'].split('.').pop()) {
+            case 'notes':
+                currentTask.getNotes().forEach((note,index) =>{
+                    fieldList.append(createNote(note,index));
+                });
+                break;
+            case 'checkList':
+                currentTask.getCheckList().forEach((checkListItem,index) =>{
+                    fieldList.append(createCheckItem(checkListItem,index));
+                });
+                break;
+        }
         //Create input
         let additionInput = document.createElement('input');
         additionInput.setAttribute('name',field['name']);
@@ -157,13 +178,13 @@ export const EditTask = (function() {
 
         //Create form element
         let form = document.createElement('form');
-        form.id = 'addTask';
+        form.id = 'editTask';
         form.classList.add('container','wmax-sm','add-task-form');
         form.addEventListener('submit',setTaskDetails); //,{ once: true }
 
         //Create form Title
         let formHeading = document.createElement('h2');
-        formHeading.textContent = addTaskPage['title'];
+        formHeading.textContent = editTaskPage['title'];
         form.append(formHeading);
 
         // Create fields
@@ -189,13 +210,13 @@ export const EditTask = (function() {
 
         // Add back to project button
         let backBtn = document.createElement('button');
-        backBtn.textContent = addTaskPage['backButton'];
+        backBtn.textContent = editTaskPage['backButton'];
         backBtn.setAttribute('type','button');
         backBtn.addEventListener('click',backToProject);
 
         // Add submit button
         let submitBtn = document.createElement('button');
-        submitBtn.textContent = addTaskPage['submitButton'];
+        submitBtn.textContent = editTaskPage['submitButton'];
 
         form.append(backBtn,submitBtn);
 
@@ -204,6 +225,9 @@ export const EditTask = (function() {
 
         // Cache Dom
         cacheDom();
+
+        //Add current values to fields
+        addFieldValues();
     }
 
     return {

@@ -52,3 +52,8 @@
 .project-item .dlt-icon:hover {
     background: var(--dlt-color);
 }
+
+.project-item .edit-icon {
+    padding: 1rem;
+    font-size: 1.25rem;
+}
