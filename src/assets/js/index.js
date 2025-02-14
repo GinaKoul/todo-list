@@ -5,6 +5,7 @@ import { AddTask } from './add-task.js';
 import { AddProject } from './add-project.js';
 import { Projects } from './projects.js';
 import { Project } from './project.js';
+import { EditTask } from './edit-task.js';
 
 Projects.load();
 
@@ -24,10 +25,15 @@ function addTaskPage() {
     AddTask.load();
 }
 
+function editTaskPage() {
+    EditTask.load();
+}
+
 PubSub.on('AddProject',addProjectPage);
 PubSub.on('AllProjects',allProjectsPage);
 PubSub.on('OpenProject',projectPage);
 PubSub.on('AddTask',addTaskPage);
+PubSub.on('EditTask',editTaskPage);
 
 
 if (process.env.NODE_ENV !== 'production') {

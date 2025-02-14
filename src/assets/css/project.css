@@ -102,3 +102,72 @@
     background: var(--dlt-color) !important;
     color: var(--secondary-color);
 }
+
+.task-item .task-details {
+    padding: 16px;
+}
+
+.task-item section {
+    padding-bottom: 16px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+/*Task Notes*/
+.task-notes {
+    padding-left: 20px;
+}
+
+.task-notes li {
+    padding: 4px 0;
+}
+
+/*Task Check List*/
+.task-checklist {
+    list-style: none;
+}
+
+/*Form Checkbox*/
+.checkbox-field {
+    max-width: fit-content;
+    position: relative;
+}
+.checkbox-field label {
+  padding-right: 25px;
+  pointer-events: none;
+}
+.checkbox-field input {
+  position: absolute; 
+  content: ''; 
+  right: 0;
+  top: 50%;
+  translate: 0 -50%;
+  width: 14px;
+  height: 14px;
+  opacity: 0;
+}
+.checkbox-field:before {
+  position: absolute;  
+  content: '';
+  right: 0;
+  top: 50%;
+  translate: 0 -50%;
+  width: 14px;
+  height: 14px;
+  border: 1px solid var(--border-color);
+  pointer-events: none;
+}
+
+.checkbox-field:has(input:checked):before {
+    background-color: var(--low-priority-hover);
+}
+.checkbox-field:has(input:checked):after {
+    position: absolute;
+    content: '\2713';
+    color: var(--secondary-color);
+    font-size: 1.125rem;
+    font-weight: 700;
+    right: calc((14px -12px - 2px)/2);
+    top: calc((14px -15px - 2px)/2);
+    pointer-events: none;
+}

@@ -4,7 +4,9 @@ import { PubSub } from './pubsub.js';
 import { TodoProjectList } from "./todo-project-list.js";
 import { TodoProject } from "./todo-project.js";
 import { RecentProject } from "./recent-project.js";
+import { RecentTask } from "./recent-task.js";
 import { TodoItem } from './todo-item.js';
+import ProjectPage from "../json/project.json";
 
 export const Project = (function(){
     // cacheDom
@@ -27,20 +29,23 @@ export const Project = (function(){
         render();
     }
 
-    // function openProject(event) {
-    //     let selectedProject = event.target.getAttribute('data-id');
-    //     RecentProject.set(projectList.find(project => project.getId() == selectedProject));
-    //     console.log(RecentProject.get());
-    // }
+    function editTask(event) {
+        let selectedTask = event.target.closest('.task-item').getAttribute('data-id');
+        RecentTask.set(projectTasks.find(task => task.getId() == selectedTask));
+        PubSub.trigger('EditTask');
+    }
 
-    function createCheckListItem(checkListItem,index) {
+    function createCheckListItem(task,checkListItem,index) {
         let taskCheckListItem = document.createElement('li');
+        taskCheckListItem.classList.add('checkbox-field');
         taskCheckListItem.setAttribute('data-id',index);
         //Create checkList item label
         let checkListItemLabel = document.createElement('label');
+        checkListItemLabel.setAttribute('for',`check${index}`)
         checkListItemLabel.textContent = checkListItem.getTitle();
         //Create checkList item input
         let checkListItemInput = document.createElement('input');
+        checkListItemInput.setAttribute('id',`${task.getId()}-${index}`);
         checkListItemInput.setAttribute('type','checkbox');
         checkListItemInput.checked = checkListItem.getStatus();
         checkListItemInput.addEventListener('click',changeItemStatus);
@@ -55,7 +60,7 @@ export const Project = (function(){
         console.log(taskCheckList);
         taskCheckList.textContent = '';
         task.getCheckList().forEach((checkListItem,index)=>{
-            taskCheckList.append(createCheckListItem(checkListItem,index));
+            taskCheckList.append(createCheckListItem(task,checkListItem,index));
         });
     }
 
@@ -69,11 +74,6 @@ export const Project = (function(){
 
     function createTask(task) {
         let taskArticle = document.createElement('article');
-        // projectSection.classList.add('project-item');
-        // projectSection.setAttribute('data-id',project.getId());
-        // // projectSection.addEventListener('click',openProject);
-
-        // projectSection.append(projectTitle,deleteItem);
 
         //Create collapse section parent
         let collapseParent = document.createElement('details');
@@ -96,10 +96,16 @@ export const Project = (function(){
         taskDueDate.classList.add('due-date');
         let dueDateTitle = document.createElement('span');
         dueDateTitle.classList.add('bold');
-        dueDateTitle.textContent = 'Due Date: ';
+        dueDateTitle.textContent = `${ProjectPage['dueDateTitle']}: `;
         let dueDateContent = document.createElement('span');
         dueDateContent.textContent = task.getDueDate();
         taskDueDate.append(dueDateTitle,dueDateContent);
+
+        //Create edit button
+        let editItem = document.createElement('button');
+        editItem.classList.add('edit-icon');
+        editItem.textContent = '&#x270E';
+        editItem.addEventListener('click',editTask);
 
         //Create delete button
         let deleteItem = document.createElement('button');
@@ -108,36 +114,55 @@ export const Project = (function(){
         deleteItem.addEventListener('click',deleteTask);
 
         //Add title of collapse
-        collapseTitle.append(taskTitle,taskDueDate,deleteItem);
+        collapseTitle.append(taskTitle,taskDueDate,editItem,deleteItem);
 
-        //Create description paragraph
+        //Create task details container
+        let detailsContainer = document.createElement('div');
+        detailsContainer.classList.add('task-details');
+
+        //Create description
+        let descContainer = document.createElement('section');
+        let descTitle = document.createElement('h4');
+        descTitle.textContent = ProjectPage['descriptionTitle'];
         let taskDescription = document.createElement('p');
         taskDescription.textContent = task.getDescription();
+        descContainer.append(descTitle,taskDescription)
 
-        collapseParent.append(collapseTitle,taskDescription);
+        detailsContainer.append(descContainer);
 
         //Create notes list
         let taskNotes = task.getNotes();
         if(taskNotes.length > 0){
+            let notesContainer = document.createElement('section');
+            let notesTitle = document.createElement('h4');
+            notesTitle.textContent = ProjectPage['notesTitle'];
             let taskNotesList = document.createElement('ul');
+            taskNotesList.classList.add('task-notes');
             taskNotes.forEach(note =>{
                 let taskNote = document.createElement('li');
                 taskNote.textContent = note;
                 taskNotesList.append(taskNote);
             });
-            collapseParent.append(taskNotesList);
+            notesContainer.append(notesTitle,taskNotesList)
+            detailsContainer.append(notesContainer);
         }
 
         //Create checkList
         let taskCheckListItems = task.getCheckList();
         if(taskCheckListItems.length > 0){
+            let checkContainer = document.createElement('section');
+            let checkTitle = document.createElement('h4');
+            checkTitle.textContent = ProjectPage['checkListTitle'];
             let taskCheckList = document.createElement('ul');    
             taskCheckList.classList.add('task-checklist');
             taskCheckListItems.forEach((checkListItem,index)=>{
-                taskCheckList.append(createCheckListItem(checkListItem,index));
+                taskCheckList.append(createCheckListItem(task,checkListItem,index));
             });
-            collapseParent.append(taskCheckList);
+            checkContainer.append(checkTitle,taskCheckList)
+            detailsContainer.append(checkContainer);
         }
+
+        collapseParent.append(collapseTitle,detailsContainer);
 
         taskArticle.append(collapseParent);
         return taskArticle;
@@ -174,11 +199,11 @@ export const Project = (function(){
         projectsTitle.textContent = project.getTitle();
 
         let backToProjectsBtn = document.createElement('button');
-        backToProjectsBtn.textContent = 'Back To Projects';
+        backToProjectsBtn.textContent = ProjectPage['backButton'];
         backToProjectsBtn.addEventListener('click',backToProjects);
 
         let addProjectBtn = document.createElement('button');
-        addProjectBtn.textContent = 'Add Task';
+        addProjectBtn.textContent = ProjectPage['addTaskButton'];
         addProjectBtn.addEventListener('click',addTaskPage);
 
         projectsContainer.append(projectsTitle,backToProjectsBtn,addProjectBtn);

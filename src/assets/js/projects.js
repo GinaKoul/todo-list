@@ -4,6 +4,7 @@ import { PubSub } from './pubsub.js';
 import { TodoProjectList } from "./todo-project-list.js";
 import { TodoProject } from "./todo-project.js";
 import { RecentProject } from "./recent-project.js";
+import ProjectsPage from "../json/projects.json";
 
 export const Projects = (function(){
     // cacheDom
@@ -42,10 +43,10 @@ export const Projects = (function(){
         projectsContainer.classList.add('container','components-list');
 
         let projectsTitle = document.createElement('h2');
-        projectsTitle.textContent = 'All Projects';
+        projectsTitle.textContent = ProjectsPage['title'];
 
         let addProjectBtn = document.createElement('button');
-        addProjectBtn.textContent = 'Add project';
+        addProjectBtn.textContent = ProjectsPage['addProjectButton'];
         addProjectBtn.addEventListener('click',addProjectPage);
 
         projectsContainer.append(projectsTitle,addProjectBtn);
