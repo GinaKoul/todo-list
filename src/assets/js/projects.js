@@ -60,11 +60,13 @@ export const Projects = (function(){
         projectsContainer.append(projectsTitle,addProjectBtn);
         
         projectList.forEach(project => {
+            //Create project article
             let projectSection = document.createElement('article');
             projectSection.classList.add('project-item');
             projectSection.setAttribute('data-id',project.getId());
             projectSection.addEventListener('click',openProject);
 
+            //Create project Title
             let projectTitle = document.createElement('h3');
             projectTitle.textContent = project.getTitle();
 

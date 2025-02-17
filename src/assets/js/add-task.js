@@ -128,19 +128,25 @@ export const AddTask = (function() {
     function createAddField(field) {
         //Create collapse section parent
         let collapseParent = document.createElement('details');
+
         //Set name to make sure only one is open
         collapseParent.setAttribute('name','todo-item');
+
         //Create collapse title
         let collapseTitle = document.createElement('summary');
+
         //Add field label as the title of collapse
         collapseTitle.append(Form.createLabel(field));
+
         //Create the list for added elements
         let fieldList = document.createElement('ul');
         fieldList.classList.add('field-list');
+
         //Create input
         let additionInput = document.createElement('input');
         additionInput.setAttribute('name',field['name']);
         additionInput.setAttribute('type',field['inputType']);
+
         //Create button that adds elements
         let additionBtn = document.createElement('button');
         additionBtn.setAttribute('type','button');

@@ -17,7 +17,9 @@ export const Storage = (function() {
 
     function setProjects() {
         let projects = localStorage.getItem('TodoProjects');
-        CreateProjects.run(localAvailability && projects?projects:[]);
+        if(localAvailability && projects) {
+            CreateProjects.run(localAvailability && projects?projects:[]);
+        }
     }
 
     function updateRecentProject() {

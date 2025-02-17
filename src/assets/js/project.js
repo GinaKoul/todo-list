@@ -219,49 +219,55 @@ export const Project = (function(){
 
         projectTasks = project.getTaskList();
 
+        //Create project article
         let projectsContainer = document.createElement('article');
         projectsContainer.classList.add('container','components-list');
 
+        //Create project title
         let projectsTitle = document.createElement('h2');
         projectsTitle.textContent = project.getTitle();
 
+        //Create edit button
         let editItem = document.createElement('button');
         editItem.classList.add('edit-icon');
         editItem.textContent = '\u270E';
         editItem.addEventListener('click',editProject);
 
+        //Create delete button
         let deleteItem = document.createElement('button');
         deleteItem.classList.add('dlt-icon');
         deleteItem.textContent = '⌫';
         deleteItem.addEventListener('click',deleteProject);
 
+        //Create back button
         let backToProjectsBtn = document.createElement('button');
         backToProjectsBtn.textContent = ProjectPage['backButton'];
         backToProjectsBtn.addEventListener('click',backToProjects);
 
+        //Create add task button
         let addProjectBtn = document.createElement('button');
         addProjectBtn.textContent = ProjectPage['addTaskButton'];
         addProjectBtn.addEventListener('click',addTaskPage);
 
+        //Create priority section
         let prioritySection = document.createElement('details');
         prioritySection.classList.add('priorities');
         let prioritySummary = document.createElement('summary');
         let priorityTitle = document.createElement('h3');
-        priorityTitle.textContent = 'Priorities';
+        priorityTitle.textContent = ProjectPage['prioritiesTitle'];
         prioritySummary.append(priorityTitle);
-        let priorityHigh = document.createElement('h4');
-        priorityHigh.textContent = 'High';
-        priorityHigh.classList.add('high');
-        let priorityMedium = document.createElement('h4');
-        priorityMedium.textContent = 'Medium';
-        priorityMedium.classList.add('medium');
-        let priorityLow = document.createElement('h4');
-        priorityLow.textContent = 'Low';
-        priorityLow.classList.add('low');
-        prioritySection.append(prioritySummary,priorityHigh,priorityMedium,priorityLow);
+        prioritySection.append(prioritySummary);
+
+        ProjectPage['priorities'].forEach(priority => {
+            let priorityTitle = document.createElement('h4');
+            priorityTitle.textContent = priority['title'];
+            priorityTitle.classList.add(priority['value']);
+            prioritySection.append(priorityTitle);
+        })
 
         projectsContainer.append(projectsTitle,prioritySection,editItem,deleteItem,backToProjectsBtn,addProjectBtn);
         
+        //Create tasks
         projectTasks.forEach(task => {
             projectsContainer.append(createTask(task));
         });

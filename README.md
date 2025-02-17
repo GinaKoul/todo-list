@@ -35,11 +35,11 @@ The Todo List contains the following functionalities:
 
 - **Change Check List Item Status**
 
-Each project contains the following:\ 
+Each project contains the following:
 
 - **Title**
 
-Each task contains the following:\
+Each task contains the following:
 
 - **Title**
 

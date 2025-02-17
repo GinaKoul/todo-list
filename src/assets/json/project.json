@@ -1,8 +1,23 @@
 {
     "backButton": "Back To Projects",
     "addTaskButton": "Add Task",
+    "priorities": [
+        {
+            "title": "High",
+            "value": "high"
+        },
+        {
+            "title": "Medium",
+            "value": "medium"
+        },
+        {
+            "title": "Low",
+            "value": "low"
+        }
+    ],
     "descriptionTitle": "Description",
     "dueDateTitle": "Due Date",
     "notesTitle": "Notes",
-    "checkListTitle": "Check List"
+    "checkListTitle": "Check List",
+    "prioritiesTitle": "Priorities"
 }
