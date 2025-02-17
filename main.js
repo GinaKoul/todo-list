@@ -508,7 +508,9 @@ const Storage = (function() {
 
     function setProjects() {
         let projects = localStorage.getItem('TodoProjects');
-        CreateProjects.run(localAvailability && projects?projects:[]);
+        if(localAvailability && projects) {
+            CreateProjects.run(localAvailability && projects?projects:[]);
+        }
     }
 
     function updateRecentProject() {
@@ -763,19 +765,25 @@ const AddTask = (function() {
     function createAddField(field) {
         //Create collapse section parent
         let collapseParent = document.createElement('details');
+
         //Set name to make sure only one is open
         collapseParent.setAttribute('name','todo-item');
+
         //Create collapse title
         let collapseTitle = document.createElement('summary');
+
         //Add field label as the title of collapse
         collapseTitle.append(Form.createLabel(field));
+
         //Create the list for added elements
         let fieldList = document.createElement('ul');
         fieldList.classList.add('field-list');
+
         //Create input
         let additionInput = document.createElement('input');
         additionInput.setAttribute('name',field['name']);
         additionInput.setAttribute('type',field['inputType']);
+
         //Create button that adds elements
         let additionBtn = document.createElement('button');
         additionBtn.setAttribute('type','button');
@@ -998,11 +1006,13 @@ const Projects = (function(){
         projectsContainer.append(projectsTitle,addProjectBtn);
         
         projectList.forEach(project => {
+            //Create project article
             let projectSection = document.createElement('article');
             projectSection.classList.add('project-item');
             projectSection.setAttribute('data-id',project.getId());
             projectSection.addEventListener('click',openProject);
 
+            //Create project Title
             let projectTitle = document.createElement('h3');
             projectTitle.textContent = project.getTitle();
 
@@ -1049,7 +1059,7 @@ const RecentTask = (function() {
     }
 })();
 ;// ./src/assets/json/project.json
-const project_namespaceObject = /*#__PURE__*/JSON.parse('{"Gv":"Back To Projects","TZ":"Add Task","LF":"Description","NC":"Due Date","WE":"Notes","HE":"Check List"}');
+const project_namespaceObject = /*#__PURE__*/JSON.parse('{"Gv":"Back To Projects","TZ":"Add Task","vx":[{"title":"High","value":"high"},{"title":"Medium","value":"medium"},{"title":"Low","value":"low"}],"LF":"Description","NC":"Due Date","WE":"Notes","HE":"Check List","B":"Priorities"}');
 ;// ./node_modules/date-fns/locale/en-US/_lib/formatDistance.js
 const formatDistanceLocale = {
   lessThanXSeconds: {
@@ -4416,49 +4426,55 @@ const Project = (function(){
 
         projectTasks = project.getTaskList();
 
+        //Create project article
         let projectsContainer = document.createElement('article');
         projectsContainer.classList.add('container','components-list');
 
+        //Create project title
         let projectsTitle = document.createElement('h2');
         projectsTitle.textContent = project.getTitle();
 
+        //Create edit button
         let editItem = document.createElement('button');
         editItem.classList.add('edit-icon');
         editItem.textContent = '\u270E';
         editItem.addEventListener('click',editProject);
 
+        //Create delete button
         let deleteItem = document.createElement('button');
         deleteItem.classList.add('dlt-icon');
         deleteItem.textContent = '⌫';
         deleteItem.addEventListener('click',deleteProject);
 
+        //Create back button
         let backToProjectsBtn = document.createElement('button');
         backToProjectsBtn.textContent = project_namespaceObject.Gv;
         backToProjectsBtn.addEventListener('click',backToProjects);
 
+        //Create add task button
         let addProjectBtn = document.createElement('button');
         addProjectBtn.textContent = project_namespaceObject.TZ;
         addProjectBtn.addEventListener('click',addTaskPage);
 
+        //Create priority section
         let prioritySection = document.createElement('details');
         prioritySection.classList.add('priorities');
         let prioritySummary = document.createElement('summary');
         let priorityTitle = document.createElement('h3');
-        priorityTitle.textContent = 'Priorities';
+        priorityTitle.textContent = project_namespaceObject.B;
         prioritySummary.append(priorityTitle);
-        let priorityHigh = document.createElement('h4');
-        priorityHigh.textContent = 'High';
-        priorityHigh.classList.add('high');
-        let priorityMedium = document.createElement('h4');
-        priorityMedium.textContent = 'Medium';
-        priorityMedium.classList.add('medium');
-        let priorityLow = document.createElement('h4');
-        priorityLow.textContent = 'Low';
-        priorityLow.classList.add('low');
-        prioritySection.append(prioritySummary,priorityHigh,priorityMedium,priorityLow);
+        prioritySection.append(prioritySummary);
+
+        project_namespaceObject.vx.forEach(priority => {
+            let priorityTitle = document.createElement('h4');
+            priorityTitle.textContent = priority['title'];
+            priorityTitle.classList.add(priority['value']);
+            prioritySection.append(priorityTitle);
+        })
 
         projectsContainer.append(projectsTitle,prioritySection,editItem,deleteItem,backToProjectsBtn,addProjectBtn);
         
+        //Create tasks
         projectTasks.forEach(task => {
             projectsContainer.append(createTask(task));
         });
@@ -4616,13 +4632,16 @@ const EditTask = (function() {
     function createAddField(field) {
         //Create collapse section parent
         let collapseParent = document.createElement('details');
+
         //Set name to make sure only one is open
-        // collapseParent.setAttribute('name','todo-item');
         collapseParent.setAttribute('open',true);
+
         //Create collapse title
         let collapseTitle = document.createElement('summary');
+
         //Add field label as the title of collapse
         collapseTitle.append(Form.createLabel(field));
+
         //Create the list for added elements
         let fieldList = document.createElement('ul');
         fieldList.classList.add('field-list');
@@ -4638,10 +4657,12 @@ const EditTask = (function() {
                 });
                 break;
         }
+
         //Create input
         let additionInput = document.createElement('input');
         additionInput.setAttribute('name',field['name']);
         additionInput.setAttribute('type',field['inputType']);
+        
         //Create button that adds elements
         let additionBtn = document.createElement('button');
         additionBtn.setAttribute('type','button');
