@@ -11,7 +11,7 @@ Welcome to the Todo List Project!\
 It's built using Webpack to manage assets and streamline the development process.\
 It uses the localStorage and sessionStorage in order to save useful data.
 
-***Link to Project:*** https://ginakoul.github.io/restaurant-page/
+***Link to Project:*** https://ginakoul.github.io/todo-list/
 
 The Todo List contains the following functionalities:
 
@@ -136,4 +136,4 @@ git status
 npm run deploy
 ```
 
-This will push the compiled and minified assets to the [gh-pages](https://github.com/GinaKoul/restaurant-page/tree/gh-pages) branch.
+This will push the compiled and minified assets to the [gh-pages](https://github.com/GinaKoul/todo-list/tree/gh-pages) branch.
