@@ -5,6 +5,10 @@ export function TodoProject() {
         title,
         taskList = [];
 
+    function setId(value) {
+        id = value;
+    }
+
     function getId() {
         return id;
     }
@@ -30,6 +34,7 @@ export function TodoProject() {
     }
 
     return {
+        setId,
         getId,
         setTitle,
         getTitle,

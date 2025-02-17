@@ -1,4 +1,6 @@
+import '../css/form.css';
 import { PubSub } from "./pubsub.js";
+import { CurrentEvent } from './current-event.js';
 import { documentMock } from "./document-mock.js";
 import { Form } from "./form.js";
 import { TodoItem } from './todo-item.js';
@@ -30,13 +32,16 @@ export const AddTask = (function() {
 
     function setTaskDetails(event) {
         event.preventDefault();
-        newTask.setTitle(titleField.value);
-        newTask.setDescription(descriptionField.value);
-        newTask.setDueDate(dueDateField.value);
-        newTask.setPriority(priorityField.value);
-        let currentProject = RecentProject.get();
-        currentProject.addTask(newTask);
-        backToProject();
+        if(Form.validate(addTaskForm)) {
+            newTask.setTitle(titleField.value);
+            newTask.setDescription(descriptionField.value);
+            newTask.setDueDate(dueDateField.value);
+            newTask.setPriority(priorityField.value);
+            let currentProject = RecentProject.get();
+            currentProject.addTask(newTask);
+            PubSub.trigger('UpdateProjects');
+            backToProject();
+        }
     }
 
     function addTaskNote(additionField) {
@@ -147,13 +152,14 @@ export const AddTask = (function() {
 
     function render() {
         mainContent.textContent = '';
+        CurrentEvent.set('AddTask');
         newTask = TodoItem();
 
         //Create form element
         let form = document.createElement('form');
         form.id = 'addTask';
-        form.classList.add('container','wmax-sm','add-task-form');
-        form.addEventListener('submit',setTaskDetails); //,{ once: true }
+        form.classList.add('container','wmax-sm','add-form');
+        form.addEventListener('submit',setTaskDetails);
 
         //Create form Title
         let formHeading = document.createElement('h2');

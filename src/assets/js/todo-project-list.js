@@ -9,14 +9,19 @@ export const TodoProjectList = (function() {
         projectList.splice(index,1)
     }
 
-    function getProjectList() {
+    function get() {
         return projectList;
+    }
+
+    function reset() {
+        projectList = [];
     }
 
     return {
         addProject,
         removeProject,
-        getProjectList
+        get,
+        reset
     }
 
 })();

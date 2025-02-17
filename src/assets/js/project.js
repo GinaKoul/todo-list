@@ -1,14 +1,12 @@
 import '../css/project.css';
-import { documentMock } from "./document-mock.js";
+import { documentMock } from './document-mock.js';
 import { PubSub } from './pubsub.js';
+import { CurrentEvent } from './current-event.js';
 import { TodoProjectList } from "./todo-project-list.js";
-import { TodoProject } from "./todo-project.js";
 import { RecentProject } from "./recent-project.js";
 import { RecentTask } from "./recent-task.js";
-import { TodoItem } from './todo-item.js';
 import ProjectPage from "../json/project.json";
 import { format } from "date-fns";
-import { CreateProjectsJson } from './create-projects-json.js';
 
 export const Project = (function(){
     // cacheDom
@@ -28,6 +26,7 @@ export const Project = (function(){
     function deleteTask(event) {
         let selectedProject = event.target.closest('.task-item').getAttribute('data-id');
         project.removeTask(projectTasks.findIndex(project => project.getId() == selectedProject));
+        PubSub.trigger('UpdateProjects');
         PubSub.trigger('OpenProject');
     }
 
@@ -39,7 +38,8 @@ export const Project = (function(){
 
     function deleteProject(event) {
         event.stopPropagation();
-        TodoProjectList.removeProject(TodoProjectList.getProjectList().findIndex(task => task.getId() == project.getId()));
+        TodoProjectList.removeProject(TodoProjectList.get().findIndex(task => task.getId() == project.getId()));
+        PubSub.trigger('UpdateProjects');
         PubSub.trigger('AllProjects');
     }
 
@@ -52,13 +52,15 @@ export const Project = (function(){
         let taskCheckListItem = document.createElement('li');
         taskCheckListItem.classList.add('checkbox-field');
         taskCheckListItem.setAttribute('data-id',index);
-        //Create checkList item label
+
+        //Create checkbox label
         let checkListItemLabel = document.createElement('label');
-        checkListItemLabel.setAttribute('for',`check${index}`)
+        checkListItemLabel.setAttribute('for',`check${task.getId()}-${index}`)
         checkListItemLabel.textContent = checkListItem.getTitle();
-        //Create checkList item input
+
+        //Create checkbox input
         let checkListItemInput = document.createElement('input');
-        checkListItemInput.setAttribute('id',`${task.getId()}-${index}`);
+        checkListItemInput.setAttribute('id',`check${task.getId()}-${index}`);
         checkListItemInput.setAttribute('type','checkbox');
         checkListItemInput.checked = checkListItem.getStatus();
         checkListItemInput.addEventListener('click',changeItemStatus);
@@ -70,7 +72,6 @@ export const Project = (function(){
 
     function renderCheckList(task) {
         let taskCheckList = document.querySelector(`[data-id='${task.getId()}'] .task-checklist`);
-        console.log(taskCheckList);
         taskCheckList.textContent = '';
         task.getCheckList().forEach((checkListItem,index)=>{
             taskCheckList.append(createCheckListItem(task,checkListItem,index));
@@ -78,11 +79,22 @@ export const Project = (function(){
     }
 
     function changeItemStatus(event) {
+        event.stopPropagation();
         let selectedTask = event.target.closest('.task-item').getAttribute('data-id');
         let selectedItem = event.target.closest('li').getAttribute('data-id');
         selectedTask = projectTasks.find(task => task.getId() == selectedTask);
         selectedItem = selectedTask.getCheckListItem(selectedItem).changeStatus();
+        PubSub.trigger('UpdateProjects');
         renderCheckList(selectedTask);
+    }
+
+    function changeTaskStatus(event) {
+        event.stopPropagation();
+        let selectedTask = event.target.closest('.task-item').getAttribute('data-id');
+        selectedTask = projectTasks.find(task => task.getId() == selectedTask);
+        selectedTask.changeStatus();
+        PubSub.trigger('UpdateProjects');
+        render();
     }
 
     function createTask(task) {
@@ -114,6 +126,25 @@ export const Project = (function(){
         dueDateContent.textContent = format(task.getDueDate(), "dd/MM/yyyy HH:mm");
         taskDueDate.append(dueDateTitle,dueDateContent);
 
+        //Create checkbox
+        let checkboxContainer = document.createElement('div');
+        checkboxContainer.classList.add('task-status','checkbox-field');
+
+        //Create checkbox label
+        let checkboxLabel = document.createElement('label');
+        checkboxLabel.setAttribute('for',`task${task.getId()}`)
+        checkboxLabel.textContent = task.getTitle();
+        checkboxLabel.setAttribute('hidden','hidden');
+
+        //Create checkbox input
+        let checkboxInput = document.createElement('input');
+        checkboxInput.setAttribute('id',`task${task.getId()}`);
+        checkboxInput.setAttribute('type','checkbox');
+        checkboxInput.checked = task.getStatus();
+        checkboxInput.addEventListener('click',changeTaskStatus);
+
+        checkboxContainer.append(checkboxLabel,checkboxInput);
+
         //Create edit button
         let editItem = document.createElement('button');
         editItem.classList.add('edit-icon');
@@ -127,7 +158,7 @@ export const Project = (function(){
         deleteItem.addEventListener('click',deleteTask);
 
         //Add title of collapse
-        collapseTitle.append(taskTitle,taskDueDate,editItem,deleteItem);
+        collapseTitle.append(taskTitle,taskDueDate,checkboxContainer,editItem,deleteItem);
 
         //Create task details container
         let detailsContainer = document.createElement('div');
@@ -183,26 +214,9 @@ export const Project = (function(){
 
     function render() {
         mainContent.textContent = '';
+        CurrentEvent.set('OpenProject');
         project = RecentProject.get();
 
-        //Remove
-        let newTask = TodoItem();
-        newTask.setTitle('Task 1');
-        newTask.setDescription('Task 1 Description');
-        newTask.setDueDate('2025-02-19T16:56');
-        newTask.setPriority('high');
-        newTask.addNote('Note 1');
-        newTask.addNote('Note 2');
-        newTask.addCheckListItem('CheckList Item 1');
-        newTask.addCheckListItem('CheckList Item 2');
-        project.addTask(newTask);
-        let newTask2 = TodoItem();
-        newTask2.setTitle('Task 2');
-        newTask2.setDescription('Task 2 Description');
-        newTask2.setDueDate('2025-02-19T16:56');
-        newTask2.setPriority('low');
-        project.addTask(newTask2);
-        //Remove
         projectTasks = project.getTaskList();
 
         let projectsContainer = document.createElement('article');
@@ -229,15 +243,30 @@ export const Project = (function(){
         addProjectBtn.textContent = ProjectPage['addTaskButton'];
         addProjectBtn.addEventListener('click',addTaskPage);
 
-        projectsContainer.append(projectsTitle,editItem,deleteItem,backToProjectsBtn,addProjectBtn);
+        let prioritySection = document.createElement('details');
+        prioritySection.classList.add('priorities');
+        let prioritySummary = document.createElement('summary');
+        let priorityTitle = document.createElement('h3');
+        priorityTitle.textContent = 'Priorities';
+        prioritySummary.append(priorityTitle);
+        let priorityHigh = document.createElement('h4');
+        priorityHigh.textContent = 'High';
+        priorityHigh.classList.add('high');
+        let priorityMedium = document.createElement('h4');
+        priorityMedium.textContent = 'Medium';
+        priorityMedium.classList.add('medium');
+        let priorityLow = document.createElement('h4');
+        priorityLow.textContent = 'Low';
+        priorityLow.classList.add('low');
+        prioritySection.append(prioritySummary,priorityHigh,priorityMedium,priorityLow);
+
+        projectsContainer.append(projectsTitle,prioritySection,editItem,deleteItem,backToProjectsBtn,addProjectBtn);
         
         projectTasks.forEach(task => {
             projectsContainer.append(createTask(task));
         });
 
         mainContent.append(projectsContainer);
-
-        console.log(CreateProjectsJson.get());
     }
 
     return {

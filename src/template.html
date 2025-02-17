@@ -7,28 +7,19 @@
 </head>
 <body>
     <header>
-        <div class="header-wrapper container">
-            <h1 class="logo">My Todo List</h1>
-            <button class="menu-open">Menu trigger</button>
-            <nav class="menu" data-menu="closed">
-                <button class="menu-close">&#x2715;</button>
-                <button class="menu-nav" data-id="1">Home</button>
-                <button class="menu-nav" data-id="2">Menu</button>
-                <button class="menu-nav" data-id="3">Contact</button>
-                <button class="menu-nav" data-id="4">Credits</button>
-            </nav>
-        </div>
+        <nav class="header-wrapper container">
+            <button class="menu-nav menu-logo" data-id="OpenProject"><h1 class="logo">My Todo List</h1></button>
+            <button class="menu-nav" data-id="AllProjects">All Projects</button>
+        </nav>
     </header>
-    <main id="content">
-        <!-- <details>
-            <summary>Title</summary>
-            <p>Description</p>
-        </details> -->
-    </main>
+    <main id="content"></main>
     <footer>
         <div class="container">
             <span>&copy Gina Kouliaki</span>
         </div>
     </footer>
+    <div class="validation-msg">
+        <p>Please make sure all required fields are filled</p>
+    </div>
 </body>
 </html>

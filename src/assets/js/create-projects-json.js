@@ -27,7 +27,7 @@ export const CreateProjectsJson = (function() {
     }
 
     function getProjects() {
-        return TodoProjectList.getProjectList().map((project) => {
+        return TodoProjectList.get().map((project) => {
             return {
                 id: project.getId(),
                 title: project.getTitle(),

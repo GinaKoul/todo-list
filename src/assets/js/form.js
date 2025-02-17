@@ -2,6 +2,8 @@ import { documentMock } from "./document-mock"
 
 export const Form = (function(){
 
+    let validationMsg = document.querySelector('.validation-msg');
+
     function createLabel(field) {
         let label = document.createElement('label');
         label.setAttribute('for',field['id']);
@@ -14,7 +16,8 @@ export const Form = (function(){
         inputField.id = field['id'];
         inputField.setAttribute('name',field['name']);
         inputField.setAttribute('type',field['inputType']);
-        inputField['required']?inputField.setAttribute('required','required'):null;
+        console.log()
+        field['required']?inputField.setAttribute('required','required'):null;
         return inputField;
     }
 
@@ -23,7 +26,7 @@ export const Form = (function(){
         textareaField.id = field['id'];
         textareaField.setAttribute('name',field['name']);
         textareaField.setAttribute('rows',field['rows']);
-        textareaField['required']?textareaField.setAttribute('required','required'):null;
+        field['required']?textareaField.setAttribute('required','required'):null;
         return textareaField;
     }
 
@@ -31,7 +34,7 @@ export const Form = (function(){
         let selectField = document.createElement('select');
         selectField.id = field['id'];
         selectField.setAttribute('name',field['name']);
-        selectField['required']?selectField.setAttribute('required','required'):null;
+        field['required']?selectField.setAttribute('required','required'):null;
 
         field['options'].forEach(option => {
             let selectOption = document.createElement('option');
@@ -43,11 +46,30 @@ export const Form = (function(){
         return selectField;
     }
 
+    function validate(form) {
+        let requiredFields = form.querySelectorAll('[required]');
+        console.log(requiredFields);
+        let valid = true;
+        requiredFields.forEach(field => {
+            if(field.value.trim() == '') {
+                valid = false;
+            }
+        })
+        if(!valid) {
+            validationMsg.classList.add('show');
+            setTimeout(() => {
+                validationMsg.classList.remove('show');
+            }, 6000);
+        }
+        return valid;
+    }
+
     return {
         createLabel,
         createInput,
         createTextArea,
-        createSelect
+        createSelect,
+        validate
     }
 
 })(document||documentMock)

@@ -37,6 +37,43 @@
     background: var(--low-priority-hover);
 }
 
+.priorities {
+    position: fixed;
+    right: 0.5rem;
+    bottom: 0;
+    max-width: 200px;
+    background: var(--primary-color);
+    color: var(--secondary-color);
+    border: 2px solid var(--secondary-color);
+    border-radius: var(--border-radius);
+    margin-bottom: 1.5rem;
+    z-index: 20;
+    pointer-events: all;
+}
+
+.priorities summary {
+    background: var(--primary-color);
+    color: var(--secondary-color);
+    margin-bottom: 0;
+    border-top-left-radius: var(--border-radius);
+    border-top-right-radius: var(--border-radius);
+}
+
+.priorities h3 {
+    text-align: center;
+    padding: 1rem;
+    margin-bottom: 0 !important;
+}
+.priorities h4 {
+    padding: 0.5rem;
+    margin-bottom: 0 !important;
+}
+
+.priorities h4:last-child {
+    border-bottom-left-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+}
+
 .task-item > * {
     font-size: 1.125rem !important;
 }
@@ -146,6 +183,8 @@
   translate: 0 -50%;
   width: 14px;
   height: 14px;
+  border: 1px solid var(--border-color);
+  cursor: pointer;
   opacity: 0;
 }
 .checkbox-field:before {
@@ -174,6 +213,37 @@
     pointer-events: none;
 }
 
+[hidden='hidden'] {
+    width: 1px;
+    height: 1px;
+    visibility: hidden;
+    overflow: hidden;
+}
+
+.task-item .task-status {
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    margin: auto 8px;
+}
+
+.task-item .task-status input {
+    width: 40px;
+    height: 40px;
+}
+
+.task-item .task-status:before {
+    width: 36px;
+    height: 36px;
+    border: 2px solid var(--secondary-color);
+}
+
+.task-item .task-status:has(input:checked):after {
+    font-size: 2rem;
+    right: calc((36px -22px - 2px)/2);
+    top: 0;
+}
+
 @media (max-width: 767px) {
     .task-item summary {
         flex-wrap: wrap;
@@ -193,14 +263,19 @@
         margin-top: 8px;
     }
 
-    .task-item summary .edit-icon {
+    .task-item .task-status {
         order: 3;
+        margin: auto auto auto 16px;
+    }
+
+    .task-item summary .edit-icon {
+        order: 4;
         margin-left: auto;
         margin-top: 8px;
     }
 
     .task-item summary .dlt-icon {
-        order: 4;
+        order: 5;
         margin-top: 8px;
     }
 }

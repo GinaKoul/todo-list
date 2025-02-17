@@ -1,4 +1,6 @@
+import '../css/form.css';
 import { PubSub } from "./pubsub.js";
+import { CurrentEvent } from './current-event.js';
 import { documentMock } from "./document-mock.js";
 import { Form } from "./form.js";
 import { TodoProjectList } from "./todo-project-list.js";
@@ -21,22 +23,26 @@ export const AddProject = (function(){
         PubSub.trigger('AllProjects');
     }
 
-    function setTaskDetails(event) {
+    function setProjectDetails(event) {
         event.preventDefault();
-        const newProject = TodoProject();
-        newProject.setTitle(titleField.value);
-        TodoProjectList.addProject(newProject);
-        PubSub.trigger('AllProjects');
+        if(Form.validate(addProjectForm)) {
+            const newProject = TodoProject();
+            newProject.setTitle(titleField.value);
+            TodoProjectList.addProject(newProject);
+            PubSub.trigger('UpdateProjects');
+            PubSub.trigger('AllProjects');
+        }
     }
 
     function render() {
         mainContent.textContent = '';
+        CurrentEvent.set('AddProject');
 
         //Create form element
         let form = document.createElement('form');
         form.id = 'addProject';
-        form.classList.add('container','wmax-sm','add-task-form');
-        form.addEventListener('submit',setTaskDetails);
+        form.classList.add('container','wmax-sm','add-form');
+        form.addEventListener('submit',setProjectDetails);
 
         //Create form Title
         let formHeading = document.createElement('h2');

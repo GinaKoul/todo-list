@@ -2,23 +2,23 @@
     --task-form-bg: #fff;
 }
 
-.add-task-form {
+.add-form {
     background: var(--task-form-bg);
 }
 
-.add-task-form details {
+.add-form details {
     width: 100%;
     max-width: var(--form-inner-wmax);
 }
 
-.add-task-form details ul {
+.add-form details ul {
     margin: 1.5rem;
 }
 
-.add-task-form details li {
+.add-form details li {
     padding: 4px 8px;
 }
 
-.add-task-form details {
+.add-form details {
     margin-bottom: 1.5rem;
 }

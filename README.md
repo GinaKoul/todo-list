@@ -1,4 +1,4 @@
-# Il Forno Magico Restaurant Page
+# Todo List
 
 > ## Table of Contents
 - [Project Information](#project-information)
@@ -7,27 +7,56 @@
     - [Development Instructions](#development-instructions)
     - [Deployment Instructions](#deployment-instructions)
 
-Welcome to the Il Forno Magico restaurant page project!\
-It's built using Webpack to manage assets and streamline the development process.
+Welcome to the Todo List Project!\
+It's built using Webpack to manage assets and streamline the development process.\
+It uses the localStorage and sessionStorage in order to save useful data.
 
 ***Link to Project:*** https://ginakoul.github.io/restaurant-page/
 
-The Il Forno Magico restaurant page contains the following main sections:
+The Todo List contains the following functionalities:
 
-- **Homepage:** The landing page that introduces the restaurant and provides basic information.
+- **View all Projects**
 
-- **Menu Page:** This page showcases the full menu, categorized for easy browsing.
+- **Add Project**
 
-- **Category Page:** Displays items from a selected category of the menu.
+- **Remove Project**
 
-- **Contact Page:** Provides contact details.
+- **Edit Project**
 
-- **Credits Page:** This page acknowledges all the contributors to the project, including credits for the images used.
+- **View Project with tasks:**
+
+- **Add Task**
+
+- **Remove Task**
+
+- **Edit Task**
+
+- **Change Task Status**
+
+- **Change Check List Item Status**
+
+Each project contains the following:\ 
+
+- **Title**
+
+Each task contains the following:\
+
+- **Title**
+
+- **Description**
+
+- **Due Date**
+
+- **Priority**
+
+- **Notes**
+
+- **Check List**
 
 > ## Project information
 
 **Version:** 1.0.0\
-**Last Build:** 06/02/2025
+**Last Build:** 17/02/2025
 
 **Technologies Used:**
 
@@ -50,7 +79,7 @@ git clone <repository-url>
 2. Navigate to the project folder:
 
 ```bash
-cd restaurant-page
+cd todo-list
 ```
 
 3. Install dependencies:

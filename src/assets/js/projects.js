@@ -1,8 +1,8 @@
 import '../css/projects.css';
 import { documentMock } from "./document-mock.js";
 import { PubSub } from './pubsub.js';
+import { CurrentEvent } from './current-event.js';
 import { TodoProjectList } from "./todo-project-list.js";
-import { TodoProject } from "./todo-project.js";
 import { RecentProject } from "./recent-project.js";
 import ProjectsPage from "../json/projects.json";
 
@@ -12,13 +12,6 @@ export const Projects = (function(){
 
     let projectList;
 
-    const newProject = TodoProject();
-    const newProject2 = TodoProject();
-    newProject.setTitle('Project 1');
-    newProject2.setTitle('Project 2');
-    TodoProjectList.addProject(newProject);
-    TodoProjectList.addProject(newProject2);
-
     function addProjectPage() {
         PubSub.trigger('AddProject');
     }
@@ -27,29 +20,32 @@ export const Projects = (function(){
         event.stopPropagation();
         let selectedProject = event.target.closest('.project-item').getAttribute('data-id');
         TodoProjectList.removeProject(projectList.findIndex(project => project.getId() == selectedProject));
+        PubSub.trigger('UpdateProjects');
         render();
     }
 
-    function setCurrentTask(eventTarget) {
+    function setCurrentProject(eventTarget) {
         let selectedProject = eventTarget.closest('.project-item').getAttribute('data-id');
         RecentProject.set(projectList.find(project => project.getId() == selectedProject));
+        PubSub.trigger('UpdateRecentProject');
     }
 
     function openProject(event) {
         event.stopPropagation();
-        setCurrentTask(event.target);
+        setCurrentProject(event.target);
         PubSub.trigger('OpenProject');
     }
 
     function editProject(event) {
         event.stopPropagation();
-        setCurrentTask(event.target);
+        setCurrentProject(event.target);
         PubSub.trigger('EditProject');
     }
 
     function render() {
         mainContent.textContent = '';
-        projectList = TodoProjectList.getProjectList();
+        CurrentEvent.set('AllProjects');
+        projectList = TodoProjectList.get();
 
         let projectsContainer = document.createElement('article');
         projectsContainer.classList.add('container','components-list');

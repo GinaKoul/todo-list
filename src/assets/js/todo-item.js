@@ -11,6 +11,10 @@ export function TodoItem() {
         notes = [],
         checkList = [];
 
+    function setId(value) {
+        id = value;
+    }
+
     function getId() {
         return id;
     }
@@ -86,6 +90,7 @@ export function TodoItem() {
     }
 
     return {
+        setId,
         getId,
         setTitle,
         getTitle,
