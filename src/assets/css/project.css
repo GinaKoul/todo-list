@@ -206,7 +206,7 @@
     position: absolute;
     content: '\2713';
     color: var(--secondary-color);
-    font-size: 1.125rem;
+    font-size: 1rem;
     font-weight: 700;
     right: 0;
     top: 50%;
