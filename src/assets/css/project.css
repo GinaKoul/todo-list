@@ -168,7 +168,7 @@
 
 /*Form Checkbox*/
 .checkbox-field {
-    max-width: fit-content;
+    max-width: max-content;
     position: relative;
 }
 .checkbox-field label {
@@ -208,8 +208,9 @@
     color: var(--secondary-color);
     font-size: 1.125rem;
     font-weight: 700;
-    right: calc((14px -12px - 2px)/2);
-    top: calc((14px -15px - 2px)/2);
+    right: 0;
+    top: 50%;
+    translate: 0 -50%;
     pointer-events: none;
 }
 
