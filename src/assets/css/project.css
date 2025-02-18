@@ -241,8 +241,7 @@
 
 .task-item .task-status:has(input:checked):after {
     font-size: 2rem;
-    right: calc((36px -22px - 2px)/2);
-    top: 0;
+    right: 6px;
 }
 
 @media (max-width: 767px) {
