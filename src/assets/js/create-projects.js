@@ -2,34 +2,34 @@ import { TodoProjectList } from './todo-project-list.js';
 import { TodoProject } from './todo-project.js';
 import { TodoItem } from './todo-item.js';
 
-export const CreateProjects = (function(){
+export const CreateProjects = (function () {
 
     function setProject(project) {
-        let newProject = TodoProject();
+        const newProject = TodoProject();
         newProject.setId(project.id);
         newProject.setTitle(project.title);
         
         project.taskList.forEach((task) => {
-            let newTask = TodoItem();
+            const newTask = TodoItem();
             newTask.setId(task.id);
             newTask.setTitle(task.title);
             newTask.setDescription(task.description);
             newTask.setDueDate(task.dueDate);
             newTask.setPriority(task.priority);
-            if(task.status) {
+            if (task.status) {
                 newTask.changeStatus();
             }
 
             task.notes.forEach(note => {
                 newTask.addNote(note);
-            })
+            });
 
-            task.checkList.forEach((checkListItem,index) => {
+            task.checkList.forEach((checkListItem, index) => {
                 newTask.addCheckListItem(checkListItem.title);
-                if(checkListItem.status) {
+                if (checkListItem.status) {
                     newTask.getCheckListItem(index).changeStatus();
                 }
-            })
+            });
 
             newProject.addTask(newTask);
         });
@@ -39,9 +39,9 @@ export const CreateProjects = (function(){
 
     function setProjects(projects) {
         TodoProjectList.reset();
-        projects.map((project) => {
+        projects.forEach((project) => {
             TodoProjectList.addProject(setProject(project));
-        })
+        });
     }
 
     function run(projectsJSON) {
@@ -50,5 +50,6 @@ export const CreateProjects = (function(){
 
     return {
         run
-    }
+    };
+    
 })();

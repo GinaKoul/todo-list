@@ -11,11 +11,12 @@ import { EditTask } from './edit-task.js';
 import { EditProject } from './edit-project.js';
 import { documentMock } from './document-mock.js';
 
-const appInit = (function() {
-    let navButtons,
-        validationMsg = document.querySelector('.validation-msg'); 
+(function () {
+    let navButtons; 
 
+    // eslint-disable-next-line no-undef
     if (process.env.NODE_ENV !== 'production') {
+        // eslint-disable-next-line no-console
         console.log('Looks like we are in development mode!');
     }
 
@@ -23,18 +24,18 @@ const appInit = (function() {
         window.scrollTo({
             top: 0,
             behavior: 'smooth'
-        })
+        });
     }
 
-    function handleNavigation() {
-        PubSub.trigger(this.getAttribute('data-id'));
+    function handleNavigation(event) {
+        PubSub.trigger(event.target.getAttribute('data-id'));
     }
 
 
     function initNavigation() {
         navButtons = document.querySelectorAll('.menu-nav');
         navButtons.forEach(navButton=> {
-            navButton.addEventListener('click',handleNavigation);
+            navButton.addEventListener('click', handleNavigation);
         });
     }
 
@@ -80,16 +81,16 @@ const appInit = (function() {
         scrollToTop();
     }
 
-    PubSub.on('UpdateProjects',updateStorageProjects);
-    PubSub.on('UpdateRecentProject',updateStorageRecent);
-    PubSub.on('UpdateCurrentEvent',updateCurrentEvent);
-    PubSub.on('AllProjects',allProjectsPage);
-    PubSub.on('OpenProject',projectPage);
-    PubSub.on('AddProject',addProjectPage);
-    PubSub.on('EditProject',editProjectPage);
-    PubSub.on('AddTask',addTaskPage);
-    PubSub.on('EditTask',editTaskPage);
-
+    PubSub.on('UpdateProjects', updateStorageProjects);
+    PubSub.on('UpdateRecentProject', updateStorageRecent);
+    PubSub.on('UpdateCurrentEvent', updateCurrentEvent);
+    PubSub.on('AllProjects', allProjectsPage);
+    PubSub.on('OpenProject', projectPage);
+    PubSub.on('AddProject', addProjectPage);
+    PubSub.on('EditProject', editProjectPage);
+    PubSub.on('AddTask', addTaskPage);
+    PubSub.on('EditTask', editTaskPage);
+ 
     function initTodo() {
         initNavigation();
 
@@ -97,22 +98,22 @@ const appInit = (function() {
         Storage.setRecentProject();
         Storage.setCurrentEvent();
 
-        let currentEvent = CurrentEvent.get();
-        if(currentEvent) {
+        const currentEvent = CurrentEvent.get ();
+        if (currentEvent) {
             PubSub.trigger(currentEvent);
-        } else if(RecentProject.get()) {
+        } else if (RecentProject.get ()) {
             projectPage();
         } else {
             allProjectsPage();
         }
     }
 
-    window.addEventListener("storage", (e) => {
+    window.addEventListener ("storage", () => {
         initTodo();
     });
     
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initTodo);
+        document.addEventListener ('DOMContentLoaded', initTodo);
     } else {
         initTodo();
     }

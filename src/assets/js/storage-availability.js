@@ -8,11 +8,11 @@ export function storageAvailable(type) {
         return true;
     } catch (e) {
         return (
-        e instanceof DOMException &&
-        e.name === "QuotaExceededError" &&
-        // acknowledge QuotaExceededError only if there's something already stored
-        storage &&
-        storage.length !== 0
+            e instanceof DOMException &&
+            e.name === "QuotaExceededError" &&
+            // Acknowledge QuotaExceededError only if there's something already stored
+            storage &&
+            storage.length !== 0
         );
     }
 }

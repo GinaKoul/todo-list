@@ -1,4 +1,4 @@
-export const TodoProjectList = (function() {
+export const TodoProjectList = (function () {
     let projectList = [];
 
     function addProject(project) {
@@ -6,7 +6,7 @@ export const TodoProjectList = (function() {
     }
 
     function removeProject(index) {
-        projectList.splice(index,1)
+        projectList.splice(index, 1);
     }
 
     function get() {
@@ -22,6 +22,6 @@ export const TodoProjectList = (function() {
         removeProject,
         get,
         reset
-    }
+    };
 
 })();

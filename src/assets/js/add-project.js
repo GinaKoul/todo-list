@@ -7,12 +7,12 @@ import { TodoProjectList } from "./todo-project-list.js";
 import { TodoProject } from './todo-project.js';
 import addProjectPage from "../json/add-project.json";
 
-export const AddProject = (function(){
-    // cacheDom
-    let mainContent = document.querySelector('#content');
+export const AddProject = (function () {
+    // Cache Dom
+    const mainContent = document.querySelector('#content');
 
-    let addProjectForm,
-        titleField;
+    let addProjectForm;
+    let titleField;
 
     function cacheDom() {
         addProjectForm = document.querySelector('#addProject');
@@ -25,7 +25,7 @@ export const AddProject = (function(){
 
     function setProjectDetails(event) {
         event.preventDefault();
-        if(Form.validate(addProjectForm)) {
+        if (Form.validate(addProjectForm)) {
             const newProject = TodoProject();
             newProject.setTitle(titleField.value);
             TodoProjectList.addProject(newProject);
@@ -38,14 +38,14 @@ export const AddProject = (function(){
         mainContent.textContent = '';
         CurrentEvent.set('AddProject');
 
-        //Create form element
-        let form = document.createElement('form');
+        // Create form element
+        const form = document.createElement('form');
         form.id = 'addProject';
-        form.classList.add('container','wmax-sm','add-form');
-        form.addEventListener('submit',setProjectDetails);
+        form.classList.add('container', 'wmax-sm', 'add-form');
+        form.addEventListener('submit', setProjectDetails);
 
-        //Create form Title
-        let formHeading = document.createElement('h2');
+        // Create form Title
+        const formHeading = document.createElement('h2');
         formHeading.textContent = addProjectPage['title'];
         form.append(formHeading);
 
@@ -56,20 +56,22 @@ export const AddProject = (function(){
                     form.append(Form.createLabel(field));
                     form.append(Form.createInput(field));
                     break;
+                default:
+                    break;
             }
         });
 
         // Add back to project button
-        let backBtn = document.createElement('button');
+        const backBtn = document.createElement('button');
         backBtn.textContent = addProjectPage['backButton'];
-        backBtn.setAttribute('type','button');
-        backBtn.addEventListener('click',backToProjects);
+        backBtn.setAttribute('type', 'button');
+        backBtn.addEventListener('click', backToProjects);
 
         // Add submit button
-        let submitBtn = document.createElement('button');
+        const submitBtn = document.createElement('button');
         submitBtn.textContent = addProjectPage['submitButton'];
 
-        form.append(backBtn,submitBtn);
+        form.append(backBtn, submitBtn);
 
         // Add page content
         mainContent.append(form);
@@ -80,6 +82,6 @@ export const AddProject = (function(){
 
     return {
         load: render
-    }
-
-})(document||documentMock)
+    };
+    
+})(document||documentMock);

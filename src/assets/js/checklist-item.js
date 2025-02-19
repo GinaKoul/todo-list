@@ -1,6 +1,6 @@
 export function CheckListItem() {
-    let title,
-        status = false;
+    let title;
+    let status = false;
 
     function setTitle(value) {
         title = value;
@@ -23,5 +23,6 @@ export function CheckListItem() {
         getTitle,
         changeStatus,
         getStatus
-    }
+    };
+    
 }

@@ -7,16 +7,16 @@ import { TodoItem } from './todo-item.js';
 import { RecentProject } from "./recent-project.js";
 import addTaskPage from "../json/add-task.json";
 
-export const AddTask = (function() {
-    // cacheDom
-    let mainContent = document.querySelector('#content');
+export const AddTask = (function () {
+    // Cache Dom
+    const mainContent = document.querySelector('#content');
 
-    let newTask,
-        addTaskForm,
-        titleField,
-        descriptionField,
-        dueDateField,
-        priorityField;
+    let newTask;
+    let addTaskForm;
+    let titleField;
+    let descriptionField;
+    let dueDateField;
+    let priorityField;
 
     function cacheDom() {
         addTaskForm = document.querySelector('#addTask');
@@ -32,12 +32,12 @@ export const AddTask = (function() {
 
     function setTaskDetails(event) {
         event.preventDefault();
-        if(Form.validate(addTaskForm)) {
+        if (Form.validate(addTaskForm)) {
             newTask.setTitle(titleField.value);
             newTask.setDescription(descriptionField.value);
             newTask.setDueDate(dueDateField.value);
             newTask.setPriority(priorityField.value);
-            let currentProject = RecentProject.get();
+            const currentProject = RecentProject.get();
             currentProject.addTask(newTask);
             PubSub.trigger('UpdateProjects');
             backToProject();
@@ -45,74 +45,74 @@ export const AddTask = (function() {
     }
 
     function addTaskNote(additionField) {
-        if(additionField.value) {
+        if (additionField.value) {
             newTask.addNote(additionField.value);
             additionField.value = '';
         }
     }
 
     function removeTaskNote(event) {
-        let itemId = event.target.closest('li').getAttribute('data-id');
+        const itemId = event.target.closest('li').getAttribute('data-id');
         newTask.removeNote(Number(itemId));
         renderNotes(event.target.closest('details'));
     }
 
     function renderNotes(fieldContainer) {
-        let containerList = fieldContainer.querySelector('ul');
+        const containerList = fieldContainer.querySelector('ul');
         containerList.textContent = '';
-        newTask.getNotes().forEach((note,index) =>{
-            let listItem = document.createElement('li');
-            listItem.setAttribute('data-id',index);
+        newTask.getNotes().forEach((note, index) =>{
+            const listItem = document.createElement('li');
+            listItem.setAttribute('data-id', index);
 
-            let itemContent = document.createElement('span');
+            const itemContent = document.createElement('span');
             itemContent.textContent = note;
 
-            let deleteItem = document.createElement('span');
+            const deleteItem = document.createElement('span');
             deleteItem.classList.add('dlt-icon');
             deleteItem.textContent = '⌫';
-            deleteItem.addEventListener('click',removeTaskNote);
+            deleteItem.addEventListener('click', removeTaskNote);
 
-            listItem.append(itemContent,deleteItem);
+            listItem.append(itemContent, deleteItem);
             containerList.append(listItem);
-        })
+        });
     }
 
     function addTaskCheckItem(additionField) {
-        if(additionField.value) {
+        if (additionField.value) {
             newTask.addCheckListItem(additionField.value);
             additionField.value = '';
         }
     }
 
     function removeTaskCheckItem(event) {
-        let itemId = event.target.closest('li').getAttribute('data-id');
+        const itemId = event.target.closest('li').getAttribute('data-id');
         newTask.removeCheckListItem(Number(itemId));
         renderCheckList(event.target.closest('details'));
     }
 
     function renderCheckList(fieldContainer) {
-        let containerList = fieldContainer.querySelector('ul');
+        const containerList = fieldContainer.querySelector('ul');
         containerList.textContent = '';
-        newTask.getCheckList().forEach((checkListItem,index) =>{
-            let listItem = document.createElement('li');
-            listItem.setAttribute('data-id',index);
+        newTask.getCheckList().forEach((checkListItem, index) =>{
+            const listItem = document.createElement('li');
+            listItem.setAttribute('data-id', index);
 
-            let itemContent = document.createElement('span');
+            const itemContent = document.createElement('span');
             itemContent.textContent = checkListItem.getTitle();
 
-            let deleteItem = document.createElement('span');
+            const deleteItem = document.createElement('span');
             deleteItem.classList.add('dlt-icon');
             deleteItem.textContent = '⌫';
-            deleteItem.addEventListener('click',removeTaskCheckItem);
+            deleteItem.addEventListener('click', removeTaskCheckItem);
 
-            listItem.append(itemContent,deleteItem);
+            listItem.append(itemContent, deleteItem);
             containerList.append(listItem);
-        })
+        });
     }
 
     function additionEvent(event) {
-        let additionContainer = event.target.closest('details');
-        let additionField = additionContainer.querySelector('input');
+        const additionContainer = event.target.closest('details');
+        const additionField = additionContainer.querySelector('input');
         switch (additionField.getAttribute('name').split('.').pop()) {
             case 'notes':
                 addTaskNote(additionField);
@@ -122,37 +122,39 @@ export const AddTask = (function() {
                 addTaskCheckItem(additionField);
                 renderCheckList(additionContainer);
                 break;
+            default: 
+                break;
         }
     }
 
     function createAddField(field) {
-        //Create collapse section parent
-        let collapseParent = document.createElement('details');
+        // Create collapse section parent
+        const collapseParent = document.createElement('details');
 
-        //Set name to make sure only one is open
-        collapseParent.setAttribute('name','todo-item');
+        // Set name to make sure only one is open
+        collapseParent.setAttribute('name', 'todo-item');
 
-        //Create collapse title
-        let collapseTitle = document.createElement('summary');
+        // Create collapse title
+        const collapseTitle = document.createElement('summary');
 
-        //Add field label as the title of collapse
+        // Add field label as the title of collapse
         collapseTitle.append(Form.createLabel(field));
 
-        //Create the list for added elements
-        let fieldList = document.createElement('ul');
+        // Create the list for added elements
+        const fieldList = document.createElement('ul');
         fieldList.classList.add('field-list');
 
-        //Create input
-        let additionInput = document.createElement('input');
-        additionInput.setAttribute('name',field['name']);
-        additionInput.setAttribute('type',field['inputType']);
+        // Create input
+        const additionInput = document.createElement('input');
+        additionInput.setAttribute('name', field['name']);
+        additionInput.setAttribute('type', field['inputType']);
 
-        //Create button that adds elements
-        let additionBtn = document.createElement('button');
-        additionBtn.setAttribute('type','button');
+        // Create button that adds elements
+        const additionBtn = document.createElement('button');
+        additionBtn.setAttribute('type', 'button');
         additionBtn.textContent = field['buttonTitle'];
-        additionBtn.addEventListener('click',additionEvent);
-        collapseParent.append(collapseTitle,fieldList,additionInput,additionBtn);
+        additionBtn.addEventListener('click', additionEvent);
+        collapseParent.append(collapseTitle, fieldList, additionInput, additionBtn);
         return collapseParent;
     }
 
@@ -161,14 +163,14 @@ export const AddTask = (function() {
         CurrentEvent.set('AddTask');
         newTask = TodoItem();
 
-        //Create form element
-        let form = document.createElement('form');
+        // Create form element
+        const form = document.createElement('form');
         form.id = 'addTask';
-        form.classList.add('container','wmax-sm','add-form');
-        form.addEventListener('submit',setTaskDetails);
+        form.classList.add('container', 'wmax-sm', 'add-form');
+        form.addEventListener('submit', setTaskDetails);
 
-        //Create form Title
-        let formHeading = document.createElement('h2');
+        // Create form Title
+        const formHeading = document.createElement('h2');
         formHeading.textContent = addTaskPage['title'];
         form.append(formHeading);
 
@@ -190,20 +192,22 @@ export const AddTask = (function() {
                 case 'addition':
                     form.append(createAddField(field));
                     break;
+                default:
+                    break;
             }
         });
 
         // Add back to project button
-        let backBtn = document.createElement('button');
+        const backBtn = document.createElement('button');
         backBtn.textContent = addTaskPage['backButton'];
-        backBtn.setAttribute('type','button');
-        backBtn.addEventListener('click',backToProject);
+        backBtn.setAttribute('type', 'button');
+        backBtn.addEventListener('click', backToProject);
 
         // Add submit button
-        let submitBtn = document.createElement('button');
+        const submitBtn = document.createElement('button');
         submitBtn.textContent = addTaskPage['submitButton'];
 
-        form.append(backBtn,submitBtn);
+        form.append(backBtn, submitBtn);
 
         // Add page content
         mainContent.append(form);
@@ -214,5 +218,6 @@ export const AddTask = (function() {
 
     return {
         load: render
-    }
-})(document||documentMock)
+    };
+    
+})(document||documentMock);

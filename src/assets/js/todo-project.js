@@ -1,9 +1,9 @@
 import { v4 as uuidv4 } from 'uuid';
 
 export function TodoProject() {
-    let id = uuidv4(),
-        title,
-        taskList = [];
+    let id = uuidv4();
+    let title;
+    const taskList = [];
 
     function setId(value) {
         id = value;
@@ -26,7 +26,7 @@ export function TodoProject() {
     }
 
     function removeTask(index) {
-        taskList.splice(index,1)
+        taskList.splice(index, 1);
     }
 
     function getTaskList() {
@@ -41,5 +41,6 @@ export function TodoProject() {
         addTask,
         removeTask,
         getTaskList
-    }
-};
+    };
+    
+}

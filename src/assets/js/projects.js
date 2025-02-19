@@ -6,9 +6,9 @@ import { TodoProjectList } from "./todo-project-list.js";
 import { RecentProject } from "./recent-project.js";
 import ProjectsPage from "../json/projects.json";
 
-export const Projects = (function(){
-    // cacheDom
-    let mainContent = document.querySelector('#content');
+export const Projects = (function () {
+    // Cache Dom
+    const mainContent = document.querySelector('#content');
 
     let projectList;
 
@@ -18,15 +18,15 @@ export const Projects = (function(){
 
     function deleteProject(event) {
         event.stopPropagation();
-        let selectedProject = event.target.closest('.project-item').getAttribute('data-id');
-        TodoProjectList.removeProject(projectList.findIndex(project => project.getId() == selectedProject));
+        const selectedProject = event.target.closest('.project-item').getAttribute('data-id');
+        TodoProjectList.removeProject(projectList.findIndex(project => project.getId() === selectedProject));
         PubSub.trigger('UpdateProjects');
         render();
     }
 
     function setCurrentProject(eventTarget) {
-        let selectedProject = eventTarget.closest('.project-item').getAttribute('data-id');
-        RecentProject.set(projectList.find(project => project.getId() == selectedProject));
+        const selectedProject = eventTarget.closest('.project-item').getAttribute('data-id');
+        RecentProject.set(projectList.find(project => project.getId() === selectedProject));
         PubSub.trigger('UpdateRecentProject');
     }
 
@@ -47,42 +47,42 @@ export const Projects = (function(){
         CurrentEvent.set('AllProjects');
         projectList = TodoProjectList.get();
 
-        let projectsContainer = document.createElement('article');
-        projectsContainer.classList.add('container','components-list');
+        const projectsContainer = document.createElement('article');
+        projectsContainer.classList.add('container', 'components-list');
 
-        let projectsTitle = document.createElement('h2');
+        const projectsTitle = document.createElement('h2');
         projectsTitle.textContent = ProjectsPage['title'];
 
-        let addProjectBtn = document.createElement('button');
+        const addProjectBtn = document.createElement('button');
         addProjectBtn.textContent = ProjectsPage['addProjectButton'];
-        addProjectBtn.addEventListener('click',addProjectPage);
+        addProjectBtn.addEventListener('click', addProjectPage);
 
-        projectsContainer.append(projectsTitle,addProjectBtn);
+        projectsContainer.append(projectsTitle, addProjectBtn);
         
         projectList.forEach(project => {
-            //Create project article
-            let projectSection = document.createElement('article');
+            // Create project article
+            const projectSection = document.createElement('article');
             projectSection.classList.add('project-item');
-            projectSection.setAttribute('data-id',project.getId());
-            projectSection.addEventListener('click',openProject);
+            projectSection.setAttribute('data-id', project.getId());
+            projectSection.addEventListener('click', openProject);
 
-            //Create project Title
-            let projectTitle = document.createElement('h3');
+            // Create project Title
+            const projectTitle = document.createElement('h3');
             projectTitle.textContent = project.getTitle();
 
-            //Create edit button
-            let editItem = document.createElement('button');
+            // Create edit button
+            const editItem = document.createElement('button');
             editItem.classList.add('edit-icon');
             editItem.textContent = '\u270E';
-            editItem.addEventListener('click',editProject);
+            editItem.addEventListener('click', editProject);
 
-            //Create delete button
-            let deleteItem = document.createElement('button');
+            // Create delete button
+            const deleteItem = document.createElement('button');
             deleteItem.classList.add('dlt-icon');
             deleteItem.textContent = '⌫';
-            deleteItem.addEventListener('click',deleteProject);
+            deleteItem.addEventListener('click', deleteProject);
 
-            projectSection.append(projectTitle,editItem,deleteItem);
+            projectSection.append(projectTitle, editItem, deleteItem);
 
             projectsContainer.append(projectSection);
         });
@@ -92,5 +92,6 @@ export const Projects = (function(){
 
     return {
         load: render
-    }
+    };
+    
 })(document||documentMock);

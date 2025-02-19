@@ -1,14 +1,14 @@
 import { TodoProjectList } from "./todo-project-list";
 
-export const CreateProjectsJson = (function() {
+export const CreateProjectsJson = (function () {
 
     function getCheckList(checkList) {
         return checkList.map((checkListItem) => {
             return {
                 title: checkListItem.getTitle(),
                 status: checkListItem.getStatus()
-            }
-        })
+            };
+        });
     }
 
     function getTasks(projectTasks) {
@@ -22,7 +22,7 @@ export const CreateProjectsJson = (function() {
                 status: task.getStatus(),
                 notes: task.getNotes(),
                 checkList: getCheckList(task.getCheckList())
-            }
+            };
         });
     }
 
@@ -32,8 +32,8 @@ export const CreateProjectsJson = (function() {
                 id: project.getId(),
                 title: project.getTitle(),
                 taskList: getTasks(project.getTaskList())
-            }
-        })
+            };
+        });
     }
 
     function get() {
@@ -42,6 +42,7 @@ export const CreateProjectsJson = (function() {
 
     return {
         get
-    }
+    };
+    
 })();
 

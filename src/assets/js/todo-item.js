@@ -2,14 +2,14 @@ import { CheckListItem } from './checklist-item.js';
 import { v4 as uuidv4 } from 'uuid';
 
 export function TodoItem() {
-    let id = uuidv4(),
-        title,
-        description,
-        dueDate,
-        priority,
-        status = false,
-        notes = [],
-        checkList = [];
+    let id = uuidv4();
+    let title;
+    let description;
+    let dueDate;
+    let priority;
+    let status = false;
+    const notes = [];
+    const checkList = [];
 
     function setId(value) {
         id = value;
@@ -64,7 +64,7 @@ export function TodoItem() {
     }
 
     function removeNote(index) {
-        notes.splice(index,1);
+        notes.splice(index, 1);
     }
 
     function getNotes() {
@@ -72,13 +72,13 @@ export function TodoItem() {
     }
 
     function addCheckListItem(value) {
-        let item = CheckListItem();
+        const item = CheckListItem();
         item.setTitle(value);
         checkList.push(item);
     }
 
     function removeCheckListItem(index) {
-        checkList.splice(index,1);
+        checkList.splice(index, 1);
     }
 
     function getCheckList() {
@@ -109,5 +109,6 @@ export function TodoItem() {
         removeCheckListItem,
         getCheckList,
         getCheckListItem,
-    }
-};
+    };
+
+}

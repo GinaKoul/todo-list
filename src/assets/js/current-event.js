@@ -1,6 +1,6 @@
 import { PubSub } from './pubsub.js';
 
-export const CurrentEvent = (function() {
+export const CurrentEvent = (function () {
     let currentEvent;
 
     function set(value) {
@@ -15,5 +15,6 @@ export const CurrentEvent = (function() {
     return {
         set,
         get
-    }
+    };
+
 })();

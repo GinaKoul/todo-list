@@ -56,7 +56,7 @@ Each task contains the following:
 > ## Project information
 
 **Version:** 1.0.0\
-**Last Build:** 18/02/2025
+**Last Build:** 19/02/2025
 
 **Technologies Used:**
 

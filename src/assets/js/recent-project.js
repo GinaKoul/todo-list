@@ -1,4 +1,4 @@
-export const RecentProject = (function() {
+export const RecentProject = (function () {
 
     let recentProject;
 
@@ -13,5 +13,6 @@ export const RecentProject = (function() {
     return {
         set,
         get
-    }
+    };
+
 })();
