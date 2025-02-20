@@ -56,7 +56,7 @@ Each task contains the following:
 > ## Project information
 
 **Version:** 1.0.0\
-**Last Build:** 19/02/2025
+**Last Build:** 20/02/2025
 
 **Technologies Used:**
 
@@ -92,6 +92,28 @@ npm install
 
 Once the dependencies are installed, you're all set to start working on the project!
 
+***Optional:*** Add the ESlint and Prettier extensions for VSCode
+
+#### Add ESlint extension
+
+- Launch VS Code Quick Open (Ctrl+P), paste the following command, and press enter.
+
+```bash
+ext install dbaeumer.vscode-eslint
+```
+
+#### Add Prettier extension
+
+- Launch VS Code Quick Open (Ctrl+P), paste the following command, and press enter.
+
+```bash
+ext install esbenp.prettier-vscode
+```
+
+- Go to Settings > Search Settings > Default Formatter > Editor: Default Formatter > Select Prettier
+
+- Go to Settings > Text Editor > Formatting > Format On Save > Select it
+
 ### Development Instructions
 
 During development, you can use the following command to start the development server:
@@ -116,7 +138,7 @@ Once you've finished development and are ready to deploy your changes, follow th
 npm run test-rules
 ```
 
-2.  Scan code with of style rules of eslint
+2.  Scan code with style rules of eslint
 
 ```bash
 npm run scan
@@ -133,28 +155,6 @@ npm run test-format
 ```bash
 npm run format
 ```
-
-***Optional:*** Add the ESlint and Prettier extensions for VSCode
-
-##### Add ESlint extension
-
-- Launch VS Code Quick Open (Ctrl+P), paste the following command, and press enter.
-
-```bash
-ext install dbaeumer.vscode-eslint
-```
-
-##### Add Prettier extension
-
-- Launch VS Code Quick Open (Ctrl+P), paste the following command, and press enter.
-
-```bash
-ext install esbenp.prettier-vscode
-```
-
-- Go to Settings > Search Settings > Default Formatter > Editor: Default Formatter > Select Prettier
-
-- Go to Settings > Text Editor > Formatting > Format On Save > Select it
 
 #### Commit
 
