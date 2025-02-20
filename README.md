@@ -61,8 +61,8 @@ Each task contains the following:
 **Technologies Used:**
 
 - **Webpack:** For bundling and compiling assets.
-- **ESLint:** For Linting
-- **Prettier:** For Formatting
+- **ESLint:** For Linting.
+- **Prettier:** For Formatting.
 - **HTML, CSS, and JavaScript:** Core web technologies used to build the page.
 - **[Git](https://pages.github.com/):** For version control.
 
