@@ -1,27 +1,26 @@
 export const TodoProjectList = (function () {
-    let projectList = [];
+  let projectList = [];
 
-    function addProject(project) {
-        projectList.push(project);
-    }
+  function addProject(project) {
+    projectList.push(project);
+  }
 
-    function removeProject(index) {
-        projectList.splice(index, 1);
-    }
+  function removeProject(index) {
+    projectList.splice(index, 1);
+  }
 
-    function get() {
-        return projectList;
-    }
+  function get() {
+    return projectList;
+  }
 
-    function reset() {
-        projectList = [];
-    }
+  function reset() {
+    projectList = [];
+  }
 
-    return {
-        addProject,
-        removeProject,
-        get,
-        reset
-    };
-
+  return {
+    addProject,
+    removeProject,
+    get,
+    reset,
+  };
 })();

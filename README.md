@@ -61,6 +61,8 @@ Each task contains the following:
 **Technologies Used:**
 
 - **Webpack:** For bundling and compiling assets.
+- **ESLint:** For Linting
+- **Prettier:** For Formatting
 - **HTML, CSS, and JavaScript:** Core web technologies used to build the page.
 - **[Git](https://pages.github.com/):** For version control.
 
@@ -106,6 +108,56 @@ It automatically reloads the page whenever you make changes to the source files.
 
 Once you've finished development and are ready to deploy your changes, follow these steps:
 
+#### Before Commit
+
+1. Check conflicting rules between eslint and prettier
+
+```bash
+npm run test-rules
+```
+
+2.  Scan code with of style rules of eslint
+
+```bash
+npm run scan
+```
+
+3.  Check that files are already formatted
+
+```bash
+npm run test-format
+```
+
+4. Format all files with prettier
+
+```bash
+npm run format
+```
+
+***Optional:*** Add the ESlint and Prettier extensions for VSCode
+
+##### Add ESlint extension
+
+- Launch VS Code Quick Open (Ctrl+P), paste the following command, and press enter.
+
+```bash
+ext install dbaeumer.vscode-eslint
+```
+
+##### Add Prettier extension
+
+- Launch VS Code Quick Open (Ctrl+P), paste the following command, and press enter.
+
+```bash
+ext install esbenp.prettier-vscode
+```
+
+- Go to Settings > Search Settings > Default Formatter > Editor: Default Formatter > Select Prettier
+
+- Go to Settings > Text Editor > Formatting > Format On Save > Select it
+
+#### Commit
+
 1. Add all changes:
 
 ```bash
@@ -130,7 +182,9 @@ git push origin main
 git status
 ```
 
-5. Deploy the changes. Run the following command to deploy:
+#### After Commit
+
+1. Deploy the changes. Run the following command to deploy:
 
 ```bash
 npm run deploy

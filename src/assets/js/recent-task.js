@@ -1,18 +1,16 @@
 export const RecentTask = (function () {
+  let recentTask;
 
-    let recentTask;
+  function set(value) {
+    recentTask = value;
+  }
 
-    function set(value) {
-        recentTask = value;
-    }
+  function get() {
+    return recentTask;
+  }
 
-    function get() {
-        return recentTask;
-    }
-
-    return {
-        set,
-        get
-    };
-
+  return {
+    set,
+    get,
+  };
 })();

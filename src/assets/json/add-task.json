@@ -1,76 +1,76 @@
 {
-    "title": "Create new task",
-    "backButton": "Back To Project",
-    "submitButton": "Add Task",
-    "formFields": [
+  "title": "Create new task",
+  "backButton": "Back To Project",
+  "submitButton": "Add Task",
+  "formFields": [
+    {
+      "id": "taskTitle",
+      "titleLabel": "Title",
+      "fieldType": "input",
+      "inputType": "text",
+      "name": "todoItem.title",
+      "required": true
+    },
+    {
+      "id": "taskDescription",
+      "titleLabel": "Description",
+      "fieldType": "textarea",
+      "rows": "4",
+      "name": "todoItem.description",
+      "required": true
+    },
+    {
+      "id": "taskDueDate",
+      "titleLabel": "Due Date",
+      "fieldType": "input",
+      "inputType": "datetime-local",
+      "name": "todoItem.dueDate",
+      "required": true
+    },
+    {
+      "id": "taskPriority",
+      "titleLabel": "Priority",
+      "fieldType": "select",
+      "options": [
         {
-            "id": "taskTitle",
-            "titleLabel": "Title",
-            "fieldType": "input",
-            "inputType": "text",
-            "name": "todoItem.title",
-            "required": true
+          "title": "None",
+          "value": "none",
+          "selected": true
         },
         {
-            "id": "taskDescription",
-            "titleLabel": "Description",
-            "fieldType": "textarea",
-            "rows": "4",
-            "name": "todoItem.description",
-            "required": true
+          "title": "Low",
+          "value": "low",
+          "selected": false
         },
         {
-            "id": "taskDueDate",
-            "titleLabel": "Due Date",
-            "fieldType": "input",
-            "inputType": "datetime-local",
-            "name": "todoItem.dueDate",
-            "required": true
+          "title": "Medium",
+          "value": "medium",
+          "selected": false
         },
         {
-            "id": "taskPriority",
-            "titleLabel": "Priority",
-            "fieldType": "select",
-            "options": [
-                {
-                    "title": "None",
-                    "value": "none",
-                    "selected": true
-                },
-                {
-                    "title": "Low",
-                    "value": "low",
-                    "selected": false
-                },
-                {
-                    "title": "Medium",
-                    "value": "medium",
-                    "selected": false
-                },
-                {
-                    "title": "High",
-                    "value": "high",
-                    "selected": false
-                }
-            ],
-            "name": "todoItem.priority",
-            "required": true   
-        },
-        {
-            "id": "taskNotes",
-            "titleLabel": "Add Notes",
-            "fieldType": "addition",
-            "inputType": "text",
-            "name": "todoItem.notes",
-            "buttonTitle": "Save Note"
-        },
-        {
-            "id": "taskCheckList",
-            "titleLabel": "Add Check List",
-            "fieldType": "addition",
-            "inputType": "text",
-            "name": "todoItem.checkList",
-            "buttonTitle": "Save Check List Item"
+          "title": "High",
+          "value": "high",
+          "selected": false
         }
-    ]
+      ],
+      "name": "todoItem.priority",
+      "required": true
+    },
+    {
+      "id": "taskNotes",
+      "titleLabel": "Add Notes",
+      "fieldType": "addition",
+      "inputType": "text",
+      "name": "todoItem.notes",
+      "buttonTitle": "Save Note"
+    },
+    {
+      "id": "taskCheckList",
+      "titleLabel": "Add Check List",
+      "fieldType": "addition",
+      "inputType": "text",
+      "name": "todoItem.checkList",
+      "buttonTitle": "Save Check List Item"
+    }
+  ]
 }

@@ -1,20 +1,19 @@
-import { PubSub } from './pubsub.js';
+import { PubSub } from "./pubsub.js";
 
 export const CurrentEvent = (function () {
-    let currentEvent;
+  let currentEvent;
 
-    function set(value) {
-        currentEvent = value;
-        PubSub.trigger('UpdateCurrentEvent');
-    }
+  function set(value) {
+    currentEvent = value;
+    PubSub.trigger("UpdateCurrentEvent");
+  }
 
-    function get() {
-        return currentEvent;
-    }
+  function get() {
+    return currentEvent;
+  }
 
-    return {
-        set,
-        get
-    };
-
+  return {
+    set,
+    get,
+  };
 })();

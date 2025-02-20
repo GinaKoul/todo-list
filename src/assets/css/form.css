@@ -1,24 +1,24 @@
 :root {
-    --task-form-bg: #fff;
+  --task-form-bg: #fff;
 }
 
 .add-form {
-    background: var(--task-form-bg);
+  background: var(--task-form-bg);
 }
 
 .add-form details {
-    width: 100%;
-    max-width: var(--form-inner-wmax);
+  width: 100%;
+  max-width: var(--form-inner-wmax);
 }
 
 .add-form details ul {
-    margin: 1.5rem;
+  margin: 1.5rem;
 }
 
 .add-form details li {
-    padding: 4px 8px;
+  padding: 4px 8px;
 }
 
 .add-form details {
-    margin-bottom: 1.5rem;
+  margin-bottom: 1.5rem;
 }

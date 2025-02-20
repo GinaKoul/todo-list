@@ -1,59 +1,59 @@
 :root {
-    --components-list-bg: #fff;
-    --project-item-bg: var(--primary-color);
-    --project-item-color: var(--secondary-color);
-    --project-item-bg-hover: var(--body-bg);
-    --project-item-color-hover: var(--body-color);
-    --project-item-py: 10px;
-    --project-item-px: 10px;
-    --project-item-mt: 1.5rem;
+  --components-list-bg: #fff;
+  --project-item-bg: var(--primary-color);
+  --project-item-color: var(--secondary-color);
+  --project-item-bg-hover: var(--body-bg);
+  --project-item-color-hover: var(--body-color);
+  --project-item-py: 10px;
+  --project-item-px: 10px;
+  --project-item-mt: 1.5rem;
 }
 
 .components-list {
-    background: var(--components-list-bg);
-    border-radius: var(--border-radius);
-    padding: 24px;
+  background: var(--components-list-bg);
+  border-radius: var(--border-radius);
+  padding: 24px;
 }
 
 .project-item {
-    display: flex;
-    align-items: center;
-    background: var(--project-item-bg);
-    color: var(--project-item-color);
-    padding: var(--project-item-py) var(--project-item-px);
-    border-radius: var(--border-radius);
-    margin-top: var(--project-item-mt);
-    cursor: pointer;
-    transition: all 0.3s linear;
+  display: flex;
+  align-items: center;
+  background: var(--project-item-bg);
+  color: var(--project-item-color);
+  padding: var(--project-item-py) var(--project-item-px);
+  border-radius: var(--border-radius);
+  margin-top: var(--project-item-mt);
+  cursor: pointer;
+  transition: all 0.3s linear;
 }
 
 .project-item:hover {
-    background: var(--project-item-bg-hover);
-    color: var(--project-item-color-hover);
+  background: var(--project-item-bg-hover);
+  color: var(--project-item-color-hover);
 }
 
 .project-item h3 {
-    margin-bottom: 0;
-    margin-right: auto;
+  margin-bottom: 0;
+  margin-right: auto;
 }
 
 .project-item .dlt-icon {
-    padding: 1rem;
-    background: var(--project-item-bg-hover);
-    color: var(--project-item-color-hover);
-    font-size: 1.25rem;
+  padding: 1rem;
+  background: var(--project-item-bg-hover);
+  color: var(--project-item-color-hover);
+  font-size: 1.25rem;
 }
 
 .project-item:hover .dlt-icon {
-    background: var(--project-item-bg);
-    color: var(--project-item-color);
+  background: var(--project-item-bg);
+  color: var(--project-item-color);
 }
 
 .project-item .dlt-icon:hover {
-    background: var(--dlt-color);
+  background: var(--dlt-color);
 }
 
 .project-item .edit-icon {
-    padding: 1rem;
-    font-size: 1.25rem;
+  padding: 1rem;
+  font-size: 1.25rem;
 }

@@ -1,18 +1,16 @@
 export const RecentProject = (function () {
+  let recentProject;
 
-    let recentProject;
+  function set(value) {
+    recentProject = value;
+  }
 
-    function set(value) {
-        recentProject = value;
-    }
+  function get() {
+    return recentProject;
+  }
 
-    function get() {
-        return recentProject;
-    }
-
-    return {
-        set,
-        get
-    };
-
+  return {
+    set,
+    get,
+  };
 })();

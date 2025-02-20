@@ -1,15 +1,15 @@
 {
-    "title": "Create new project",
-    "backButton": "Back To Projects",
-    "submitButton": "Add project",
-    "formFields": [
-        {
-            "id": "taskTitle",
-            "titleLabel": "Title",
-            "fieldType": "input",
-            "inputType": "text",
-            "name": "todoProject.title",
-            "required": true
-        }
-    ]
+  "title": "Create new project",
+  "backButton": "Back To Projects",
+  "submitButton": "Add project",
+  "formFields": [
+    {
+      "id": "taskTitle",
+      "titleLabel": "Title",
+      "fieldType": "input",
+      "inputType": "text",
+      "name": "todoProject.title",
+      "required": true
+    }
+  ]
 }
