@@ -15,7 +15,7 @@ module.exports = {
         //     ignoreOrder: false,
         // }),
         new HtmlWebpackPlugin({
-            template: "./src/template.html",
+            template: "./src/assets/html/template.html",
         }),
         new CopyWebpackPlugin({
             patterns: [
